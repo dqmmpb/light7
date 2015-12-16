@@ -493,7 +493,8 @@ Device/OS Detection
     };
 })(Zepto);
 
-;(function () {
+/* global Zepto:true */
+;(function ($) {
 	'use strict';
 
 	/**
@@ -1328,8 +1329,10 @@ Device/OS Detection
 	};
 
   //直接绑定
-  FastClick.attach(document.body);
-}());
+  $(function() {
+    FastClick.attach(document.body);
+  });
+}(Zepto));
 
 /*===========================
   Template7 Template engine
@@ -2511,13 +2514,18 @@ Device/OS Detection
       
        
     }
-    $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .open-popover,  .close-picker', handleClicks);
-    var defaults =  $.modal.prototype.defaults  = {
-        modalButtonOk: 'OK',
-        modalButtonCancel: 'Cancel',
-        modalPreloaderTitle: 'Loading...',
-        modalContainer : document.body 
-    };
+
+    var defaults;
+
+    $(function() {
+      $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .open-popover, .close-popover, .close-picker', handleClicks);
+      defaults = $.modal.prototype.defaults  = {
+          modalButtonOk: 'OK',
+          modalButtonCancel: 'Cancel',
+          modalPreloaderTitle: 'Loading...',
+          modalContainer : document.body 
+      };
+    });
 }(Zepto);
 
 /*======================================================
@@ -5344,7 +5352,7 @@ Device/OS Detection
     html = "<div>"+html+"</div>";
     var tmp = $(html);
 
-    tmp.find(".popup, .panel, .panel-overlay").appendTo(document.body);
+    tmp.find(".popup, .popover, .panel, .panel-overlay").appendTo(document.body);
 
     var $page = tmp.find(".page");
     if(!$page[0]) $page = tmp.addClass("page");
