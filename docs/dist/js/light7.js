@@ -2513,9 +2513,9 @@ Device/OS Detection
     }
     $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .open-popover,  .close-picker', handleClicks);
     var defaults =  $.modal.prototype.defaults  = {
-        modalButtonOk: '确定',
-        modalButtonCancel: '取消',
-        modalPreloaderTitle: '加载中',
+        modalButtonOk: 'OK',
+        modalButtonCancel: 'Cancel',
+        modalPreloaderTitle: 'Loading...',
         modalContainer : document.body 
     };
 }(Zepto);
@@ -2531,10 +2531,10 @@ Device/OS Detection
   var Calendar = function (params) {
       var p = this;
       var defaults = {
-          monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月' , '九月' , '十月', '十一月', '十二月'],
-          monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月' , '九月' , '十月', '十一月', '十二月'],
-          dayNames: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
-          dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'],
+          monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           firstDay: 1, // First day of the week, Monday
           weekendDays: [0, 6], // Sunday and Saturday
           multiple: false,
@@ -3407,9 +3407,9 @@ Device/OS Detection
           convertToPopover: true,
           onlyInPopover: false,
           toolbar: true,
-          toolbarCloseText: '确定',
+          toolbarCloseText: 'OK',
           toolbarTemplate: '<header class="bar bar-nav">\
-          <button class="button button-link pull-right close-picker">确定</button>\
+          <button class="button button-link pull-right close-picker">OK</button>\
           <h1 class="title"></h1>\
           </header>',
       };
@@ -5438,7 +5438,7 @@ Device/OS Detection
 
   //初始化页面中的JS组件
   $.initPage = function(page) {
-    var $page = getPage();
+    var $page = page ? $(page) : getPage();
     if(!$page[0]) $page = $(document.body);
     var $content = $page.hasClass("content") ? $page : $page.find(".content");
     $content.scroller();  //注意滚动条一定要最先初始化
