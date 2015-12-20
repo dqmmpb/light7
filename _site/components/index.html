@@ -3049,6 +3049,12 @@
     </tr>
 
     <tr>
+      <td>value</td>
+      <td></td>
+      <td>Array with initial values. Each array item represents value of related column. Picker will auto read value from input if not set.</td>
+    </tr>
+
+    <tr>
       <td>rotateEffect</td>
       <td>false</td>
       <td>Enables 3D rotate effect</td>
@@ -3783,17 +3789,16 @@
 <script type="text/javascript">
 $(document).on('refresh', '.pull-to-refresh-content',function(e) {
     setTimeout(function() {
-        var cardNumber = $(e.target).find('.ptr-demo').length + 1;
         var cardHTML = '<div class="card">' +
-                          '<div class="card-header">card'+cardNumber+'</div>' +
+                          '<div class="card-header">New Card</div>' +
                           '<div class="card-content">' +
                             '<div class="card-content-inner">' +
-                                'Hello! I am the new card!'+
+                                'Hello! I am the new card!'+(Math.random()*1000000)+
                             '</div>' +
                           '</div>' +
                       '</div>';
 
-        $(e.target).find('.card-container').prepend(cardHTML);
+        $(e.target).find('.card').replaceWith(cardHTML);
         // done!
         $.pullToRefreshDone('.pull-to-refresh-content');
     }, 2000);
@@ -3802,17 +3807,16 @@ $(document).on('refresh', '.pull-to-refresh-content',function(e) {
 <p class="component-description">javascript:</p>
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'refresh'</span><span class="p">,</span> <span class="s1">'.pull-to-refresh-content'</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">cardNumber</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">'.card'</span><span class="p">).</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">cardHTML</span> <span class="o">=</span> <span class="s1">'&lt;div class="card"&gt;'</span> <span class="o">+</span>
-                          <span class="s1">'&lt;div class="card-header"&gt;card'</span><span class="o">+</span><span class="nx">cardNumber</span><span class="o">+</span><span class="s1">'&lt;/div&gt;'</span> <span class="o">+</span>
+                          <span class="s1">'&lt;div class="card-header"&gt;New Card&lt;/div&gt;'</span> <span class="o">+</span>
                           <span class="s1">'&lt;div class="card-content"&gt;'</span> <span class="o">+</span>
                             <span class="s1">'&lt;div class="card-content-inner"&gt;'</span> <span class="o">+</span>
-                                <span class="s1">'Hello! I am the new card!'</span><span class="o">+</span>
+                                <span class="s1">'Hello! I am the new card!'</span><span class="o">+</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1000000</span><span class="p">)</span><span class="o">+</span>
                             <span class="s1">'&lt;/div&gt;'</span> <span class="o">+</span>
                           <span class="s1">'&lt;/div&gt;'</span> <span class="o">+</span>
                       <span class="s1">'&lt;/div&gt;'</span><span class="p">;</span>
 
-        <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">'.card-container'</span><span class="p">).</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">cardHTML</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">'.card'</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">cardHTML</span><span class="p">);</span>
         <span class="c1">// done</span>
         <span class="nx">$</span><span class="p">.</span><span class="nx">pullToRefreshDone</span><span class="p">(</span><span class="s1">'.pull-to-refresh-content'</span><span class="p">);</span>
     <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
@@ -3945,7 +3949,6 @@ $(function() {
 
             addItems(itemsPerLoad, lastIndex);
             lastIndex = $('.list-container li').length;
-            $.refreshScroller();
         }, 1000);
     });
 });
@@ -3990,7 +3993,6 @@ $(function() {
 
             <span class="nx">addItems</span><span class="p">(</span><span class="nx">itemsPerLoad</span><span class="p">,</span> <span class="nx">lastIndex</span><span class="p">);</span>
             <span class="nx">lastIndex</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'.list-container li'</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
-            <span class="nx">$</span><span class="p">.</span><span class="nx">refreshScroller</span><span class="p">();</span>
         <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
     <span class="p">});</span></code></pre></figure>
 
@@ -4100,11 +4102,11 @@ $(function() {
 
   <p>The new page will slide from right to left by default. Add <code>class="no-transition"</code> to link to prevent the animation.</p>
 
-  <p>If you use Toolbar to switch multi page, use inline page instead of ajax page please. Because you may load the same page multi times if you use ajax page. See <a href="/examples/light7-mall/">light7 Mall</a> for how to use tab to switch inline pages.</p>
+  <p>There is a stack to manage the history, the new page will push to stack, you can add <code>class='replace'</code> to replace the stack instead of push.</p>
 
   <h3 class="component-title">Inline Page</h3>
   <p class="component-description">You can write multi page in one html file. Each page is in a <code>.page</code> container. If you have multi page in one html, you should use <code>.page-current</code> to make it a visiable at first enter.</p>
-  <p>Every <code>.page</code> container must have an id attr.Router will use id as the unique identify of a page. And you can use the id to jump to the page like this: <code>&lt;a href='#{page-id}'&gt;jump&lt;/a&gt;</code>.</p>
+  <p>Every <code>.page</code> container must have an id attr.Router will use id as the unique identify of a page. And you can use the id to jump to the page like this: <code>&lt;a href='#{page-id}'&gt;jump&lt;/a&gt;</code>. And if the new Page has the same id to a old page , the DOM of old page will be replace by new page.</p>
 
   <h3 class="component-title">JS And CSS</h3>
   <p>Router will ignore all scripts and styles when load new page! You should import all CSS file and JS file(pack them into one js and css file) in the entry page, And use 'pageInit' to load different page's JS code.</p>
@@ -4185,6 +4187,44 @@ $(function() {
   <p class="component-description">Call <code>$.router.loadPage(url)</code> to load an Ajax Page or an Inline Page.</p>
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">(</span><span class="s2">"/detail"</span><span class="p">);</span>  <span class="c1">//load ajax page</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">(</span><span class="s2">"#about"</span><span class="p">);</span>  <span class="c1">//load inline page</span></code></pre></figure>
+
+  <p>You can call <code>$.router.loadPage</code> with a config object like this:</p>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"/detail"</span><span class="p">,</span>
+  <span class="na">noAnimation</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">replace</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span></code></pre></figure>
+
+  <table>
+    <tr>
+      <th>Param</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>url</td>
+      <td>undefined</td>
+      <td>url to load</td>
+    </tr>
+    <tr>
+      <td>noAnimation</td>
+      <td>false</td>
+      <td>Load new page with animation</td>
+    </tr>
+    <tr>
+      <td>replace</td>
+      <td>false</td>
+      <td>If set true, the new page will replace old page in history, you can't back to old page because it has been removed from histroy(but not removed from DOM).</td>
+    </tr>
+  </table>
+
+  <p>The <code>loadPage</code> method will load new page, and push to history. If you dont't want to push to history, but want to replace history, you should use <code>replacePage</code>:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">replacePage</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">noAnimation</span><span class="p">);</span></code></pre></figure>
+
+  <p>Infact, <code>replacePage</code> is only a shortcut of <code>loadPage</code>, but set the param <code>replace</code> as <code>true</code>.</p>
+
+  <p>And if you want to refresh current page, you can simply use <code>$.router.reloadPage();</code>.</p>
 
   <h3 class="component-title">Event</h3>
   <p class="component-description">There are many events：</p>
