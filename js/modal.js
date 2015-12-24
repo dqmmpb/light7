@@ -2,7 +2,7 @@
 ************   Modals   ************
 ======================================================*/
 /*jshint unused: false*/
-/* global Zepto:true */
+/* global $:true */
 +function ($) {
   "use strict";
     var _modalTemplateTempDiv = document.createElement('div');
@@ -401,7 +401,6 @@
         modal = $(modal);
         if (modal.length === 0) return false;
         modal.show();
-        modal.find(".content").scroller("refresh");
         if (modal.find('.' + defaults.viewClass).length > 0) {
             $.sizeNavbars(modal.find('.' + defaults.viewClass)[0]);
         }
@@ -445,6 +444,7 @@
       }, 2000);
     };
     $.openModal = function (modal) {
+        if(defaults.closePrevious) $.closeModal();
         modal = $(modal);
         var isModal = modal.hasClass('modal');
         if ($('.modal.modal-in:not(.modal-out)').length && defaults.modalStack && isModal) {
@@ -615,21 +615,18 @@
             if ($('.popup.modal-in').length > 0 && defaults.popupCloseByOutside)
                 $.closeModal('.popup.modal-in');
         }
-
-      
-      
-       
     }
 
     var defaults = $.modal.prototype.defaults  = {
       modalButtonOk: 'OK',
       modalButtonCancel: 'Cancel',
       modalPreloaderTitle: 'Loading...',
-      modalContainer : document.body 
+      modalContainer : document.body,
+      closePrevious: true  //close all previous modal before open
     };
 
     $(function() {
       $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .open-popover, .close-popover, .close-picker', handleClicks);
-      defaults.modalContainer = document.body;  //incase some one include js in head
+      defaults.modalContainer = defaults.modalContainer || document.body;  //incase some one include js in head
     });
-}(Zepto);
+}($);

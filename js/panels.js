@@ -1,7 +1,7 @@
 /*======================================================
 ************   Panels   ************
 ======================================================*/
-/* global Zepto:true */
+/* global $:true */
 /*jshint unused: false*/
 +function ($) {
   "use strict";
@@ -88,16 +88,18 @@
 
       var panelOverlay = $('.panel-overlay');
       var isTouched, isMoved, isScrolling, touchesStart = {}, touchStartTime, touchesDiff, translate, opened, panelWidth, effect, direction;
-      var views = $('.page');
+      var currentPage = $($.getCurrentPage());
 
       function handleTouchStart(e) {
+          currentPage = $($.getCurrentPage());  //page may changed
           if (!$.allowPanelOpen || (!swipePanel && !swipePanelOnlyClose) || isTouched) return;
           if ($('.modal-in, .photo-browser-in').length > 0) return;
           if (!(swipePanelCloseOpposite || swipePanelOnlyClose)) {
               if ($('.panel.active').length > 0 && !panel.hasClass('active')) return;
           }
-          touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
-          touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+          var position = $.getTouchPosition(e);
+          touchesStart.x = position.x;
+          touchesStart.y = position.y;
           if (swipePanelCloseOpposite || swipePanelOnlyClose) {
               if ($('.panel.active').length > 0) {
                   side = $('.panel.active').hasClass('panel-left') ? 'left' : 'right';
@@ -130,8 +132,9 @@
           if (!isTouched) return;
           if(!panel[0]) return;
           if (e.f7PreventPanelSwipe) return;
-          var pageX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
-          var pageY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+          var position = $.getTouchPosition(e);
+          var pageX = position.x;
+          var pageY = position.y;
           if (typeof isScrolling === 'undefined') {
               isScrolling = !!(isScrolling || Math.abs(pageY - touchesStart.y) > Math.abs(pageX - touchesStart.x));
           }
@@ -176,7 +179,6 @@
                   }
               }
               isTouched = false;
-            console.log(3);
               isMoved = false;
               return;
           }
@@ -219,13 +221,13 @@
               }
           }
           if (effect === 'reveal') {
-              views.transform('translate3d(' + translate + 'px,0,0)').transition(0);
+              currentPage.transform('translate3d(' + translate + 'px,0,0)').transition(0);
               panelOverlay.transform('translate3d(' + translate + 'px,0,0)');
-              //app.pluginHook('swipePanelSetTransform', views[0], panel[0], Math.abs(translate / panelWidth));
+              //app.pluginHook('swipePanelSetTransform', currentPage[0], panel[0], Math.abs(translate / panelWidth));
           }
           else {
               panel.transform('translate3d(' + translate + 'px,0,0)').transition(0);
-              //app.pluginHook('swipePanelSetTransform', views[0], panel[0], Math.abs(translate / panelWidth));
+              //app.pluginHook('swipePanelSetTransform', currentPage[0], panel[0], Math.abs(translate / panelWidth));
           }
       }
       function handleTouchEnd(e) {
@@ -295,7 +297,7 @@
                       panel.css({display: ''});
                   }
                   else {
-                      var target = effect === 'reveal' ? views : panel;
+                      var target = effect === 'reveal' ? currentPage : panel;
                       $('body').addClass('panel-closing');
                       target.transitionEnd(function () {
                           $.allowPanelOpen = true;
@@ -306,8 +308,8 @@
               }
           }
           if (effect === 'reveal') {
-              views.transition('');
-              views.transform('');
+              currentPage.transition('');
+              currentPage.transform('');
           }
           panel.transition('').transform('');
           panelOverlay.css({display: ''}).transform('');
@@ -318,4 +320,4 @@
   };
 
   $.initSwipePanels();
-}(Zepto);
+}($);

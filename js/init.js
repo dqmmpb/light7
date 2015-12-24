@@ -1,4 +1,4 @@
-/* global Zepto:true */
+/* global $:true */
 /*jshint unused: false*/
 +function ($) {
   "use strict";
@@ -14,7 +14,6 @@
     var $page = page ? $(page) : getPage();
     if(!$page[0]) $page = $(document.body);
     var $content = $page.hasClass("content") ? $page : $page.find(".content");
-    $content.scroller();  //注意滚动条一定要最先初始化
 
     $.initPullToRefresh($content);
     $.initInfiniteScroll($content);
@@ -22,6 +21,7 @@
 
     //extend
     if($.initSwiper) $.initSwiper($content);
+    if($.initSwipeout) $.initSwipeout();  // don't pass $content because the swipeout element is not $content
   };
 
 
@@ -67,4 +67,4 @@
   });
 
 
-}(Zepto);
+}($);

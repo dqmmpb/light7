@@ -1,68 +1,14 @@
 /*======================================================
 ************   Calendar   ************
 ======================================================*/
-/* global Zepto:true */
+/* global $:true */
 /*jshint unused: false*/
 +function ($) {
   "use strict";
   var rtl = false;
+  var defaults;
   var Calendar = function (params) {
       var p = this;
-      var defaults = {
-          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'],
-          monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-          dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-          firstDay: 1, // First day of the week, Monday
-          weekendDays: [0, 6], // Sunday and Saturday
-          multiple: false,
-          dateFormat: 'yyyy-mm-dd',
-          direction: 'horizontal', // or 'vertical'
-          minDate: null,
-          maxDate: null,
-          touchMove: true,
-          animate: true,
-          closeOnSelect: true,
-          monthPicker: true,
-          monthPickerTemplate: 
-              '<div class="picker-calendar-month-picker">' +
-                  '<a href="#" class="link icon-only picker-calendar-prev-month"><i class="icon icon-prev"></i></a>' +
-                  '<div class="current-month-value"></div>' +
-                  '<a href="#" class="link icon-only picker-calendar-next-month"><i class="icon icon-next"></i></a>' +
-              '</div>',
-          yearPicker: true,
-          yearPickerTemplate: 
-              '<div class="picker-calendar-year-picker">' +
-                  '<a href="#" class="link icon-only picker-calendar-prev-year"><i class="icon icon-prev"></i></a>' +
-                  '<span class="current-year-value"></span>' +
-                  '<a href="#" class="link icon-only picker-calendar-next-year"><i class="icon icon-next"></i></a>' +
-              '</div>',
-          weekHeader: true,
-          // Common settings
-          scrollToInput: true,
-          inputReadOnly: true,
-          convertToPopover: true,
-          onlyInPopover: false,
-          toolbar: true,
-          toolbarCloseText: 'Done',
-          toolbarTemplate: 
-              '<div class="toolbar">' +
-                  '<div class="toolbar-inner">' +
-                      '{{monthPicker}}' +
-                      '{{yearPicker}}' +
-                      // '<a href="#" class="link close-picker">{{closeText}}</a>' +
-                  '</div>' +
-              '</div>',
-          /* Callbacks
-          onMonthAdd
-          onChange
-          onOpen
-          onClose
-          onDayClick
-          onMonthYearChangeStart
-          onMonthYearChangeEnd
-          */
-      };
       params = params || {};
       for (var def in defaults) {
           if (typeof params[def] === 'undefined') {
@@ -188,8 +134,9 @@
               if (isMoved || isTouched) return;
               // e.preventDefault();
               isTouched = true;
-              touchStartX = touchCurrentY = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
-              touchStartY = touchCurrentY = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+              var position = $.getTouchPosition(e);
+              touchStartX = touchCurrentY = position.x;
+              touchStartY = touchCurrentY = position.y;
               touchStartTime = (new Date()).getTime();
               percentage = 0;
               allowItemClick = true;
@@ -198,9 +145,9 @@
           }
           function handleTouchMove (e) {
               if (!isTouched) return;
-              
-              touchCurrentX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
-              touchCurrentY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+              var position = $.getTouchPosition(e);
+              touchCurrentX = position.x;
+              touchCurrentY = position.y;
               if (typeof isScrolling === 'undefined') {
                   isScrolling = !!(isScrolling || Math.abs(touchCurrentY - touchStartY) > Math.abs(touchCurrentX - touchStartX));
               }
@@ -855,10 +802,66 @@
       });
   };
 
+  defaults = $.fn.calendar.prototype.defaults = {
+    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'],
+    monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    firstDay: 1, // First day of the week, Monday
+    weekendDays: [0, 6], // Sunday and Saturday
+    multiple: false,
+    dateFormat: 'yyyy-mm-dd',
+    direction: 'horizontal', // or 'vertical'
+    minDate: null,
+    maxDate: null,
+    touchMove: true,
+    animate: true,
+    closeOnSelect: true,
+    monthPicker: true,
+    monthPickerTemplate: 
+        '<div class="picker-calendar-month-picker">' +
+            '<a href="#" class="link icon-only picker-calendar-prev-month"><i class="icon icon-prev"></i></a>' +
+            '<div class="current-month-value"></div>' +
+            '<a href="#" class="link icon-only picker-calendar-next-month"><i class="icon icon-next"></i></a>' +
+        '</div>',
+    yearPicker: true,
+    yearPickerTemplate: 
+        '<div class="picker-calendar-year-picker">' +
+            '<a href="#" class="link icon-only picker-calendar-prev-year"><i class="icon icon-prev"></i></a>' +
+            '<span class="current-year-value"></span>' +
+            '<a href="#" class="link icon-only picker-calendar-next-year"><i class="icon icon-next"></i></a>' +
+        '</div>',
+    weekHeader: true,
+    // Common settings
+    scrollToInput: true,
+    inputReadOnly: true,
+    convertToPopover: true,
+    onlyInPopover: false,
+    toolbar: true,
+    toolbarCloseText: 'Done',
+    toolbarTemplate: 
+        '<div class="toolbar">' +
+            '<div class="toolbar-inner">' +
+                '{{monthPicker}}' +
+                '{{yearPicker}}' +
+                // '<a href="#" class="link close-picker">{{closeText}}</a>' +
+            '</div>' +
+        '</div>',
+    /* Callbacks
+    onMonthAdd
+    onChange
+    onOpen
+    onClose
+    onDayClick
+    onMonthYearChangeStart
+    onMonthYearChangeEnd
+    */
+  };
+
   $.initCalendar = function(content) {
     var $content = content ? $(content) : $(document.body);
     $content.find("[data-toggle='date']").each(function() {
       $(this).calendar();
     });
   };
-}(Zepto);
+}($);

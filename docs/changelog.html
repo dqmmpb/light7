@@ -22,11 +22,26 @@ title: change log &middot; light7
 
         <h2>Changelog</h2>
 
-        <h3>v0.1.0 is coming...</h3>
+        <h3>v0.2.0 - 2015-12-24 - Merry Christmas!</h3>
+        <ul>
+          <li>Fix a bug: cssmin will merge some css properties when it compress the css file.This will cause some bug on android devices because it remove some important css properties.</li>
+          <li>New component - <a href="/extends/#swipeout">Swipeout</a>.</li>
+          <li>i18n support - <a href="/extends/#i18n">I18N</a>.</li>
+          <li>fix bug in <a href="/components/#panel">Side Panel</a>: Panel can not be open by slide when navigate to another page. Because the panel animates the initial page instead of current page.</li>
+          <li>Note! <code>light7-extend.js</code> has been renamed to <code>light7-swiper.js</code>, and <code>light7-extend.css</code> has been renamed to <code>light7-swiper.css</code>.</li>
+          <li>New param in <a href="/components/#modal">Modal</a>: <code>closePrevious</code> to close all previous when open new dialog.</li>
+          <li>New color and background class in <a href="/components/#typography">Text</a> and <a href="/components/#actions">Action Sheet</a>.</li>
+        </ul>
+
+        <h3>v0.1.0 - 2015-12-20</h3>
         <ul>
           <li>The main repo <a href="https://github.com/lihongxun945/light7">Light7</a> has been translated to English. And there is a chinese repo - <a href="https://github.com/lihongxun945/light7-cn">Light-CN</a> too.</li>
+          <li>Light7 can work with both jQuery and Zepto now! choose the one you like.</li>
           <li>Add new Component: <a href='/components/#popover'>Popover</a>.</li>
           <li>Fix a bug: when include JS file in header, Fastclick and modal will get an empty <code>document.body</code></li>
+          <li>Add a <code>replace</code> config in <a href='/components/#router'>router</a>, so you can load a new page to replace current page in history but not push to history. And also a new <code>reloadPage</code> method to reload current page.</li>
+          <li><a href='/components/#router'>router</a> will remove old page with same id when load new page.</li>
+          <li>Fix fastclick bug: It do nothing when click element is wrapped by an <code>label</code>, because of a error fix.</li>
         </ul>
 
         <h3>V0.0.5 - 2015-11-30</h3>
