@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1431676360_347254.css">
 
 <link rel="stylesheet" href="/dist/css/light7.css">
-<link rel="stylesheet" href="/dist/css/light7-extend.css">
+<link rel="stylesheet" href="/dist/css/light7-swiper.css">
+<link rel="stylesheet" href="/dist/css/light7-swipeout.css">
 <link rel="stylesheet" href="/assets/css/docs.css">
 
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
@@ -61,6 +62,7 @@
           <a class="docs-nav-item" href="/changelog">Changelog</a>
           <a class="docs-nav-item" href="https://github.com/lihongxun945/light7" target="_blank">Github</a>
           <a class="docs-nav-item" href="/about">About</a>
+          <a class="docs-nav-item" href="http://123.56.245.102/">Chinese</a>
         </div>
       </nav>
     </div>
@@ -272,22 +274,21 @@
 
 
 
-  <!-- Typography -->
   <article class="component" id="typography">
-    <h2 class="component-title">Types</h2>
-    <p class="component-description">Basic text style.</p>
+  <h2 class="component-title">Types</h2>
+  <p class="component-description">Basic text style.</p>
 
-    <div class="component-example component-example-fullbleed">
-      <div class="content-padded">
-        <h1>Heading1</h1>
-        <h2>Heading2</h2>
-        <h3>Heading3</h3>
-        <h4>Heading4</h4>
-        <h5>Heading5</h5>
-        <h6>Heading6</h6>
-        <p>This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.</p>
-      </div>
+  <div class="component-example component-example-fullbleed">
+    <div class="content-padded">
+      <h1>Heading1</h1>
+      <h2>Heading2</h2>
+      <h3>Heading3</h3>
+      <h4>Heading4</h4>
+      <h5>Heading5</h5>
+      <h6>Heading6</h6>
+      <p>This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.</p>
     </div>
+  </div>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"content-padded"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;h1&gt;</span>Heading1<span class="nt">&lt;/h1&gt;</span>
@@ -298,6 +299,25 @@
   <span class="nt">&lt;h6&gt;</span>Heading6<span class="nt">&lt;/h6&gt;</span>
   <span class="nt">&lt;p&gt;</span>This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.This is a paragraph.<span class="nt">&lt;/p&gt;</span>
 <span class="nt">&lt;/div&gt;</span></code></pre></figure>
+</article>
+<article class="component" data-url="type">
+    <h2>Text and Background Color</h2>
+
+    <p>There are some util class to set text color and background color:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'color-primary'</span><span class="nt">&gt;</span>color primary<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'color-success'</span><span class="nt">&gt;</span>color success<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'color-warning'</span><span class="nt">&gt;</span>color warning<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'color-danger'</span><span class="nt">&gt;</span>color danger<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'bg-primary'</span><span class="nt">&gt;</span>bg primary<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'bg-success'</span><span class="nt">&gt;</span>bg success<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'bg-warning'</span><span class="nt">&gt;</span>bg warning<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">'bg-danger'</span><span class="nt">&gt;</span>bg danger<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></figure>
 
   </article>
 
@@ -1321,8 +1341,6 @@
 <span class="nt">&lt;/div&gt;</span></code></pre></figure>
 </article>
 
-
-
   <article class="component active" id="tabs">
   <h2 class="component-title">Tabs</h2>
   <p class="component-description">Tabs allow to simply switch between different content.</p>
@@ -1620,9 +1638,9 @@
 <article class="component active">
   <h3 class="component-title">Confirm</h3>
   <p class="component-description">Confirm modal usualy used when it is required to confirm some action. To open Confirm modal we should also call one of the following App methods:</p>
-  <code>myApp.confirm(text, [title, callbackOk, callbackCancel])</code>
+  <code>$.confirm(text, [title, callbackOk, callbackCancel])</code>
   or
-  <code>myApp.confirm(text, [callbackOk, callbackCancel])</code>
+  <code>$.confirm(text, [callbackOk, callbackCancel])</code>
   <ul>
     <li><code>text  - string. Text to Confirm</code></li>
     <li><code>title - string. Optional</code>. Confirm modal title</li>
@@ -1726,7 +1744,7 @@
 <article class="component active">
   <h3 class="component-title">Prompt</h3>
   <p class="component-description">Prompt modal used when it is required to get some data/answer from user. To open Prompt modal we should also call one of the following App methods:</br>
-  <code>myApp.prompt(text, [title, callbackOk, callbackCancel])</code>
+  <code>$.prompt(text, [title, callbackOk, callbackCancel])</code>
   <code>$.prompt(text, [callbackOk, callbackCancel])</code></p>
   <ul>
     <li><code>text - string</code>. Prompt text/question</li>
@@ -2362,7 +2380,7 @@
 
   <p>It allows you to create Popover dynamically by passing its HTML to related methods:</p>
 
-  <p><code>myApp.popover(<span>popoverHTML</span>, <span>target</span>, <span>removeOnClose</span>)</code> - open Popover with <strong>popoverHTML</strong> content around <strong>target</strong> element</p>
+  <p><code>$.popover(<span>popoverHTML</span>, <span>target</span>, <span>removeOnClose</span>)</code> - open Popover with <strong>popoverHTML</strong> content around <strong>target</strong> element</p>
 
   <ul class="method-parameters">
     <li><code>popoverHTML</code> - <span class="parameter-type">string</span>. HTML string of popover </li>
@@ -2370,6 +2388,40 @@
     <li><code>removeOnClose</code> - <span class="parameter-type">boolean</span>. Optional, by default - true. If true then Popover will be removed from DOM when closed</li>
     <li class="method-returns">This method returns dynamically created Popover's HTMLElement</li>
   </ul>
+
+  <h3>Modal Defaults</h3>
+
+  <p>The default config of modal is <code>$.modal.prototype.defaults</code>, you can change these config:</p>
+
+  <table class="params-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>modalButtonOk</td>
+        <td>"OK"</td>
+        <td>Text of OK button</td>
+      </tr> 
+      <tr>
+        <td>modalButtonCancel</td>
+        <td>"Cancel"</td>
+        <td>Text of cancel button</td>
+      </tr> 
+      <tr>
+        <td>modalPreloaderTitle</td>
+        <td>"Loading"</td>
+        <td>Text of preloader</td>
+      </tr> 
+      <tr>
+        <td>closePrevious</td>
+        <td>true</td>
+        <td>Close all previous modal when open a new modal.</td>
+      </tr> 
 
 </article>
 
@@ -2885,8 +2937,6 @@
   <ul>
     <li><code>buttons</code> - buttons in action sheet, you can put buttons in different group.</li>
   </ul>
-  <p>use <code>color: "danger"</code> to set text color as danger.</p>
-  <p>use <code>bg: "danger"</code> to set background color as danger.</p>
   <div class="component-example component-example-fullbleed">
     <header class="bar bar-nav">
         <h1 class="title">Actions</h1>
@@ -2914,6 +2964,7 @@
           },
           {
             text: 'Bob',
+            color: "success",
             onClick: function() {
               $.alert("you choose 'Bob'");
             }
@@ -2930,6 +2981,8 @@
       }); 
   </script>
   </div>
+
+
   <figure class="highlight"><pre><code class="language-html" data-lang="html">  
   <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"bar bar-nav"</span><span class="nt">&gt;</span>
       <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Actions<span class="nt">&lt;/h1&gt;</span>
@@ -2973,6 +3026,10 @@
     <span class="nx">$</span><span class="p">.</span><span class="nx">actions</span><span class="p">(</span><span class="nx">groups</span><span class="p">);</span>
   <span class="p">});</span>
   </code></pre></figure>
+
+
+  <p>You can set button color with <code>color</code>, or set background with <code>bg</code>. There are four different color: <code>primary</code>, <code>success</code>, <code>warning</code>, <code>danger</code>. In fact, the different color is defined in <a href="#typography">Text</a>.</p>
+
 </article>
 
   <article class="component" id="picker" data-url='picker'>
@@ -3046,6 +3103,12 @@
         &lt;/header&gt;
       </td>
       <td>Toolbar HTML Template</td>
+    </tr>
+
+    <tr>
+      <td>value</td>
+      <td></td>
+      <td>Array with initial values. Each array item represents value of related column. Picker will auto read value from input if not set.</td>
     </tr>
 
     <tr>
@@ -3783,17 +3846,16 @@
 <script type="text/javascript">
 $(document).on('refresh', '.pull-to-refresh-content',function(e) {
     setTimeout(function() {
-        var cardNumber = $(e.target).find('.ptr-demo').length + 1;
         var cardHTML = '<div class="card">' +
-                          '<div class="card-header">card'+cardNumber+'</div>' +
+                          '<div class="card-header">New Card</div>' +
                           '<div class="card-content">' +
                             '<div class="card-content-inner">' +
-                                'Hello! I am the new card!'+
+                                'Hello! I am the new card!'+(Math.random()*1000000)+
                             '</div>' +
                           '</div>' +
                       '</div>';
 
-        $(e.target).find('.card-container').prepend(cardHTML);
+        $(e.target).find('.card').replaceWith(cardHTML);
         // done!
         $.pullToRefreshDone('.pull-to-refresh-content');
     }, 2000);
@@ -3802,17 +3864,16 @@ $(document).on('refresh', '.pull-to-refresh-content',function(e) {
 <p class="component-description">javascript:</p>
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'refresh'</span><span class="p">,</span> <span class="s1">'.pull-to-refresh-content'</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">cardNumber</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">'.card'</span><span class="p">).</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">cardHTML</span> <span class="o">=</span> <span class="s1">'&lt;div class="card"&gt;'</span> <span class="o">+</span>
-                          <span class="s1">'&lt;div class="card-header"&gt;card'</span><span class="o">+</span><span class="nx">cardNumber</span><span class="o">+</span><span class="s1">'&lt;/div&gt;'</span> <span class="o">+</span>
+                          <span class="s1">'&lt;div class="card-header"&gt;New Card&lt;/div&gt;'</span> <span class="o">+</span>
                           <span class="s1">'&lt;div class="card-content"&gt;'</span> <span class="o">+</span>
                             <span class="s1">'&lt;div class="card-content-inner"&gt;'</span> <span class="o">+</span>
-                                <span class="s1">'Hello! I am the new card!'</span><span class="o">+</span>
+                                <span class="s1">'Hello! I am the new card!'</span><span class="o">+</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1000000</span><span class="p">)</span><span class="o">+</span>
                             <span class="s1">'&lt;/div&gt;'</span> <span class="o">+</span>
                           <span class="s1">'&lt;/div&gt;'</span> <span class="o">+</span>
                       <span class="s1">'&lt;/div&gt;'</span><span class="p">;</span>
 
-        <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">'.card-container'</span><span class="p">).</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">cardHTML</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">'.card'</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">cardHTML</span><span class="p">);</span>
         <span class="c1">// done</span>
         <span class="nx">$</span><span class="p">.</span><span class="nx">pullToRefreshDone</span><span class="p">(</span><span class="s1">'.pull-to-refresh-content'</span><span class="p">);</span>
     <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
@@ -3945,7 +4006,6 @@ $(function() {
 
             addItems(itemsPerLoad, lastIndex);
             lastIndex = $('.list-container li').length;
-            $.refreshScroller();
         }, 1000);
     });
 });
@@ -3990,7 +4050,6 @@ $(function() {
 
             <span class="nx">addItems</span><span class="p">(</span><span class="nx">itemsPerLoad</span><span class="p">,</span> <span class="nx">lastIndex</span><span class="p">);</span>
             <span class="nx">lastIndex</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'.list-container li'</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
-            <span class="nx">$</span><span class="p">.</span><span class="nx">refreshScroller</span><span class="p">();</span>
         <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
     <span class="p">});</span></code></pre></figure>
 
@@ -4100,11 +4159,11 @@ $(function() {
 
   <p>The new page will slide from right to left by default. Add <code>class="no-transition"</code> to link to prevent the animation.</p>
 
-  <p>If you use Toolbar to switch multi page, use inline page instead of ajax page please. Because you may load the same page multi times if you use ajax page. See <a href="/examples/light7-mall/">light7 Mall</a> for how to use tab to switch inline pages.</p>
+  <p>There is a stack to manage the history, the new page will push to stack, you can add <code>class='replace'</code> to replace the stack instead of push.</p>
 
   <h3 class="component-title">Inline Page</h3>
   <p class="component-description">You can write multi page in one html file. Each page is in a <code>.page</code> container. If you have multi page in one html, you should use <code>.page-current</code> to make it a visiable at first enter.</p>
-  <p>Every <code>.page</code> container must have an id attr.Router will use id as the unique identify of a page. And you can use the id to jump to the page like this: <code>&lt;a href='#{page-id}'&gt;jump&lt;/a&gt;</code>.</p>
+  <p>Every <code>.page</code> container must have an id attr.Router will use id as the unique identify of a page. And you can use the id to jump to the page like this: <code>&lt;a href='#{page-id}'&gt;jump&lt;/a&gt;</code>. And if the new Page has the same id to a old page , the DOM of old page will be replace by new page.</p>
 
   <h3 class="component-title">JS And CSS</h3>
   <p>Router will ignore all scripts and styles when load new page! You should import all CSS file and JS file(pack them into one js and css file) in the entry page, And use 'pageInit' to load different page's JS code.</p>
@@ -4186,6 +4245,44 @@ $(function() {
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">(</span><span class="s2">"/detail"</span><span class="p">);</span>  <span class="c1">//load ajax page</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">(</span><span class="s2">"#about"</span><span class="p">);</span>  <span class="c1">//load inline page</span></code></pre></figure>
 
+  <p>You can call <code>$.router.loadPage</code> with a config object like this:</p>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"/detail"</span><span class="p">,</span>
+  <span class="na">noAnimation</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">replace</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span></code></pre></figure>
+
+  <table>
+    <tr>
+      <th>Param</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>url</td>
+      <td>undefined</td>
+      <td>url to load</td>
+    </tr>
+    <tr>
+      <td>noAnimation</td>
+      <td>false</td>
+      <td>Load new page with animation</td>
+    </tr>
+    <tr>
+      <td>replace</td>
+      <td>false</td>
+      <td>If set true, the new page will replace old page in history, you can't back to old page because it has been removed from histroy(but not removed from DOM).</td>
+    </tr>
+  </table>
+
+  <p>The <code>loadPage</code> method will load new page, and push to history. If you dont't want to push to history, but want to replace history, you should use <code>replacePage</code>:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">replacePage</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">noAnimation</span><span class="p">);</span></code></pre></figure>
+
+  <p>Infact, <code>replacePage</code> is only a shortcut of <code>loadPage</code>, but set the param <code>replace</code> as <code>true</code>.</p>
+
+  <p>And if you want to refresh current page, you can simply use <code>$.router.reloadPage();</code>.</p>
+
   <h3 class="component-title">Event</h3>
   <p class="component-description">There are many events：</p>
 
@@ -4236,6 +4333,24 @@ $(function() {
 <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pageInit"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">pageId</span><span class="p">,</span> <span class="nx">$page</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span><span class="p">(</span><span class="nx">pageId</span> <span class="o">==</span> <span class="s2">"pageIndex"</span><span class="p">)</span> <span class="p">{}</span>
 <span class="p">});</span></code></pre></figure>
+
+  <h3>Router Defaults</h3>
+
+  <p><code>$.router.defaults</code> is the default config of router:</p>
+
+  <table>
+    <tr>
+      <th>Param</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>transition</td>
+      <td>true</td>
+      <td>Use transition when load new page. You can always use <code>no-transition</code> to disable transiton on a link even if <code>defaults.transition</code> is set to true.</td>
+    </tr>
+  </table>
+
 </article>
 
   <article class="component" id="themes" data-url='theme-dark'>
@@ -4284,8 +4399,9 @@ $(function() {
 </div>
 
 <script src="/dist/js/light7.js"></script>
-<script src="/dist/js/light7-extend.js"></script>
+<script src="/dist/js/light7-swiper.js"></script>
 <script src="/dist/js/light7-city-picker.js"></script>
+<script src="/dist/js/light7-swipeout.js"></script>
 <script src="/assets/js/docs.js"></script>
 
     </div>

@@ -4,7 +4,7 @@
  *
  * =====================================================
  */
-/* global Zepto:true */
+/* global $:true */
 +function ($) {
   "use strict";
 
@@ -20,12 +20,12 @@
 
   $.smConfig = $.extend(defaults, $.config);
 
-}(Zepto);
+}($);
 
 /*===========================
 Device/OS Detection
 ===========================*/
-/* global Zepto:true */
+/* global $:true */
 ;(function ($) {
     "use strict";
     var device = {};
@@ -125,9 +125,9 @@ Device/OS Detection
     if (classNames.length > 0) $('html').addClass(classNames.join(' '));
 
     $.device = device;
-})(Zepto);
+})($);
 
-/* global Zepto:true */
+/* global $:true */
 + function($) {
   "use strict";
 
@@ -150,7 +150,22 @@ Device/OS Detection
     return 1;
   };
 
-}(Zepto);
+  $.getTouchPosition = function(e) {
+    e = e.originalEvent || e; //jquery wrap the originevent
+    if(e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend') {
+      return {
+        x: e.targetTouches[0].pageX,
+        y: e.targetTouches[0].pageY
+      };
+    } else {
+      return {
+        x: e.pageX,
+        y: e.pageY
+      };
+    }
+  };
+
+}($);
 
 //     Zepto.js
 //     (c) 2010-2015 Thomas Fuchs
@@ -226,9 +241,9 @@ Device/OS Detection
         // make available to unit tests
     $.__detect = detect;
 
-}(Zepto); // jshint ignore:line
+}($); // jshint ignore:line
 
-/* global Zepto:true */
+/* global $:true */
 /* global WebKitCSSMatrix:true */
 
 (function($) {
@@ -491,9 +506,13 @@ Device/OS Detection
           this.style.display = defaultDisplay(this.nodeName);
       });
     };
-})(Zepto);
 
-/* global Zepto:true */
+    $.fn.scrollHeight = function() {
+      return this[0].scrollHeight;
+    };
+})($);
+
+/* global $:true */
 ;(function ($) {
 	'use strict';
 
@@ -722,12 +741,6 @@ Device/OS Detection
 	 */
 	FastClick.prototype.needsClick = function(target) {
 
-    //修复bug: 如果父元素中有 label
-    var parent = target;
-    while(parent && (parent.tagName.toUpperCase() !== "BODY")) {
-      if(parent.tagName.toUpperCase() === "LABEL") return true;
-      parent = parent.parentNode;
-    }
 		switch (target.nodeName.toLowerCase()) {
 
 		// Don't send a synthetic click to disabled inputs (issue #62)
@@ -751,7 +764,19 @@ Device/OS Detection
 		case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
 		case 'video':
 			return true;
+    default:
+      //fix a bug: when input is wrap by label, but click other element in this label will do nothing.
+      var parent = target;
+      while(parent && (parent.tagName.toUpperCase() !== "BODY")) {
+        if(parent.tagName.toUpperCase() === "LABEL") {
+          $(parent).find("input").click();
+        }
+        parent = parent.parentNode;
+      }
 		}
+
+
+    
 
 		return (/\bneedsclick\b/).test(target.className);
 	};
@@ -1332,12 +1357,12 @@ Device/OS Detection
   $(function() {
     FastClick.attach(document.body);
   });
-}(Zepto));
+}($));
 
 /*===========================
   Template7 Template engine
   ===========================*/
-/* global Zepto:true */
+/* global $:true */
 /* jshint unused:false */
 /* jshint forin:false */
 +function ($) {
@@ -1755,24 +1780,21 @@ Device/OS Detection
     t7.helpers = Template7.prototype.helpers;
     return t7;
   })();
-}(Zepto);
+}($);
 
-/* ===============================================================================
-************   scroller   ************
-=============================================================================== */
-/* global Zepto:true */
+/* global $:true */
 + function($) {
   "use strict";
   
   $.getCurrentPage = function() {
     return $(".page")[0] || document.body;
   };
-}(Zepto);
+}($);
 
 /* ===============================================================================
 ************   Tabs   ************
 =============================================================================== */
-/* global Zepto:true */
+/* global $:true */
 +function ($) {
   "use strict";
 
@@ -1865,9 +1887,9 @@ Device/OS Detection
     var clicked = $(this);
     showTab(clicked.data("tab") || clicked.attr('href'), clicked);
   });
-}(Zepto);
+}($);
 
-/* global Zepto:true */
+/* global $:true */
 +function ($) {
   "use strict";
   $(document).on("click", ".tab-item", function(e) {
@@ -1890,13 +1912,13 @@ Device/OS Detection
     $(document.body)[show ? "removeClass" : "addClass"]("tabbar-hidden");
   };
 
-}(Zepto);
+}($);
 
 /*======================================================
 ************   Modals   ************
 ======================================================*/
 /*jshint unused: false*/
-/* global Zepto:true */
+/* global $:true */
 +function ($) {
   "use strict";
     var _modalTemplateTempDiv = document.createElement('div');
@@ -2295,7 +2317,6 @@ Device/OS Detection
         modal = $(modal);
         if (modal.length === 0) return false;
         modal.show();
-        modal.find(".content").scroller("refresh");
         if (modal.find('.' + defaults.viewClass).length > 0) {
             $.sizeNavbars(modal.find('.' + defaults.viewClass)[0]);
         }
@@ -2339,6 +2360,7 @@ Device/OS Detection
       }, 2000);
     };
     $.openModal = function (modal) {
+        if(defaults.closePrevious) $.closeModal();
         modal = $(modal);
         var isModal = modal.hasClass('modal');
         if ($('.modal.modal-in:not(.modal-out)').length && defaults.modalStack && isModal) {
@@ -2509,90 +2531,33 @@ Device/OS Detection
             if ($('.popup.modal-in').length > 0 && defaults.popupCloseByOutside)
                 $.closeModal('.popup.modal-in');
         }
-
-      
-      
-       
     }
 
     var defaults = $.modal.prototype.defaults  = {
       modalButtonOk: 'OK',
       modalButtonCancel: 'Cancel',
       modalPreloaderTitle: 'Loading...',
-      modalContainer : document.body 
+      modalContainer : document.body,
+      closePrevious: true  //close all previous modal before open
     };
 
     $(function() {
       $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .open-popover, .close-popover, .close-picker', handleClicks);
-      defaults.modalContainer = document.body;  //incase some one include js in head
+      defaults.modalContainer = defaults.modalContainer || document.body;  //incase some one include js in head
     });
-}(Zepto);
+}($);
 
 /*======================================================
 ************   Calendar   ************
 ======================================================*/
-/* global Zepto:true */
+/* global $:true */
 /*jshint unused: false*/
 +function ($) {
   "use strict";
   var rtl = false;
+  var defaults;
   var Calendar = function (params) {
       var p = this;
-      var defaults = {
-          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'],
-          monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-          dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-          firstDay: 1, // First day of the week, Monday
-          weekendDays: [0, 6], // Sunday and Saturday
-          multiple: false,
-          dateFormat: 'yyyy-mm-dd',
-          direction: 'horizontal', // or 'vertical'
-          minDate: null,
-          maxDate: null,
-          touchMove: true,
-          animate: true,
-          closeOnSelect: true,
-          monthPicker: true,
-          monthPickerTemplate: 
-              '<div class="picker-calendar-month-picker">' +
-                  '<a href="#" class="link icon-only picker-calendar-prev-month"><i class="icon icon-prev"></i></a>' +
-                  '<div class="current-month-value"></div>' +
-                  '<a href="#" class="link icon-only picker-calendar-next-month"><i class="icon icon-next"></i></a>' +
-              '</div>',
-          yearPicker: true,
-          yearPickerTemplate: 
-              '<div class="picker-calendar-year-picker">' +
-                  '<a href="#" class="link icon-only picker-calendar-prev-year"><i class="icon icon-prev"></i></a>' +
-                  '<span class="current-year-value"></span>' +
-                  '<a href="#" class="link icon-only picker-calendar-next-year"><i class="icon icon-next"></i></a>' +
-              '</div>',
-          weekHeader: true,
-          // Common settings
-          scrollToInput: true,
-          inputReadOnly: true,
-          convertToPopover: true,
-          onlyInPopover: false,
-          toolbar: true,
-          toolbarCloseText: 'Done',
-          toolbarTemplate: 
-              '<div class="toolbar">' +
-                  '<div class="toolbar-inner">' +
-                      '{{monthPicker}}' +
-                      '{{yearPicker}}' +
-                      // '<a href="#" class="link close-picker">{{closeText}}</a>' +
-                  '</div>' +
-              '</div>',
-          /* Callbacks
-          onMonthAdd
-          onChange
-          onOpen
-          onClose
-          onDayClick
-          onMonthYearChangeStart
-          onMonthYearChangeEnd
-          */
-      };
       params = params || {};
       for (var def in defaults) {
           if (typeof params[def] === 'undefined') {
@@ -2718,8 +2683,9 @@ Device/OS Detection
               if (isMoved || isTouched) return;
               // e.preventDefault();
               isTouched = true;
-              touchStartX = touchCurrentY = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
-              touchStartY = touchCurrentY = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+              var position = $.getTouchPosition(e);
+              touchStartX = touchCurrentY = position.x;
+              touchStartY = touchCurrentY = position.y;
               touchStartTime = (new Date()).getTime();
               percentage = 0;
               allowItemClick = true;
@@ -2728,9 +2694,9 @@ Device/OS Detection
           }
           function handleTouchMove (e) {
               if (!isTouched) return;
-              
-              touchCurrentX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
-              touchCurrentY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+              var position = $.getTouchPosition(e);
+              touchCurrentX = position.x;
+              touchCurrentY = position.y;
               if (typeof isScrolling === 'undefined') {
                   isScrolling = !!(isScrolling || Math.abs(touchCurrentY - touchStartY) > Math.abs(touchCurrentX - touchStartX));
               }
@@ -3385,18 +3351,74 @@ Device/OS Detection
       });
   };
 
+  defaults = $.fn.calendar.prototype.defaults = {
+    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'],
+    monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    firstDay: 1, // First day of the week, Monday
+    weekendDays: [0, 6], // Sunday and Saturday
+    multiple: false,
+    dateFormat: 'yyyy-mm-dd',
+    direction: 'horizontal', // or 'vertical'
+    minDate: null,
+    maxDate: null,
+    touchMove: true,
+    animate: true,
+    closeOnSelect: true,
+    monthPicker: true,
+    monthPickerTemplate: 
+        '<div class="picker-calendar-month-picker">' +
+            '<a href="#" class="link icon-only picker-calendar-prev-month"><i class="icon icon-prev"></i></a>' +
+            '<div class="current-month-value"></div>' +
+            '<a href="#" class="link icon-only picker-calendar-next-month"><i class="icon icon-next"></i></a>' +
+        '</div>',
+    yearPicker: true,
+    yearPickerTemplate: 
+        '<div class="picker-calendar-year-picker">' +
+            '<a href="#" class="link icon-only picker-calendar-prev-year"><i class="icon icon-prev"></i></a>' +
+            '<span class="current-year-value"></span>' +
+            '<a href="#" class="link icon-only picker-calendar-next-year"><i class="icon icon-next"></i></a>' +
+        '</div>',
+    weekHeader: true,
+    // Common settings
+    scrollToInput: true,
+    inputReadOnly: true,
+    convertToPopover: true,
+    onlyInPopover: false,
+    toolbar: true,
+    toolbarCloseText: 'Done',
+    toolbarTemplate: 
+        '<div class="toolbar">' +
+            '<div class="toolbar-inner">' +
+                '{{monthPicker}}' +
+                '{{yearPicker}}' +
+                // '<a href="#" class="link close-picker">{{closeText}}</a>' +
+            '</div>' +
+        '</div>',
+    /* Callbacks
+    onMonthAdd
+    onChange
+    onOpen
+    onClose
+    onDayClick
+    onMonthYearChangeStart
+    onMonthYearChangeEnd
+    */
+  };
+
   $.initCalendar = function(content) {
     var $content = content ? $(content) : $(document.body);
     $content.find("[data-toggle='date']").each(function() {
       $(this).calendar();
     });
   };
-}(Zepto);
+}($);
 
 /*======================================================
 ************   Picker   ************
 ======================================================*/
-/* global Zepto:true */
+/* global $:true */
 /* jshint unused:false */
 /* jshint multistr:true */
 + function($) {
@@ -3658,7 +3680,8 @@ Device/OS Detection
               if (isMoved || isTouched) return;
               e.preventDefault();
               isTouched = true;
-              touchStartY = touchCurrentY = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+              var position = $.getTouchPosition(e);
+              touchStartY = touchCurrentY = position.y;
               touchStartTime = (new Date()).getTime();
               
               allowItemClick = true;
@@ -3668,7 +3691,8 @@ Device/OS Detection
               if (!isTouched) return;
               e.preventDefault();
               allowItemClick = false;
-              touchCurrentY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+              var position = $.getTouchPosition(e);
+              touchCurrentY = position.y;
               if (!isMoved) {
                   // First move
                   $.cancelAnimationFrame(animationFrameId);
@@ -3840,7 +3864,7 @@ Device/OS Detection
           if (p.opened) return;
           p.open();
           if (p.params.scrollToInput && !isPopover()) {
-              var pageContent = p.input.parents('.page-content');
+              var pageContent = p.input.parents('.content');
               if (pageContent.length === 0) return;
 
               var paddingTop = parseInt(pageContent.css('padding-top'), 10),
@@ -4026,9 +4050,9 @@ Device/OS Detection
       }
     });
   };
-}(Zepto);
+}($);
 
-/* global Zepto:true */
+/* global $:true */
 /* jshint unused:false*/
 
 + function($) {
@@ -4139,326 +4163,10 @@ Device/OS Detection
     });
   };
 
-}(Zepto);
-
-/* ===============================================================================
-************   scroller   ************
-=============================================================================== */
-/* global Zepto:true */
-+ function($) {
-    "use strict";
-    //重置zepto自带的滚动条
-    var _zeptoMethodCache = {
-        "scrollTop": $.fn.scrollTop,
-        "scrollLeft": $.fn.scrollLeft
-    };
-    //重置scrollLeft和scrollRight
-    (function() {
-        $.extend($.fn, {
-            scrollTop: function(top, dur) {
-                if (!this.length) return;
-                var scroller = this.data('scroller');
-                if (scroller && scroller.scroller) { //js滚动
-                    return scroller.scrollTop(top, dur);
-                } else {
-                    return _zeptoMethodCache.scrollTop.apply(this, arguments);
-                }
-            }
-        });
-        $.extend($.fn, {
-            scrollLeft: function(left, dur) {
-                if (!this.length) return;
-                var scroller = this.data('scroller');
-                if (scroller && scroller.scroller) { //js滚动
-                    return scroller.scrollLeft(left, dur);
-                } else {
-                    return _zeptoMethodCache.scrollLeft.apply(this, arguments);
-                }
-            }
-        });
-    })();
-
-
-
-    //自定义的滚动条
-    var Scroller = function(pageContent, _options) {
-        var $pageContent = this.$pageContent = $(pageContent);
-
-        this.options = $.extend({}, this._defaults, _options);
-
-        $pageContent.addClass('native-scroll');
-    };
-    Scroller.prototype = {
-        _defaults: {
-            type: 'native',
-        },
-        _bindEventToDomWhenJs: function() {
-            //"scrollStart", //the scroll started.
-            //"scroll", //the content is scrolling. Available only in scroll-probe.js edition. See onScroll event.
-            //"scrollEnd", //content stopped scrolling.
-            if (this.scroller) {
-                var self = this;
-                this.scroller.on('scrollStart', function() {
-                    self.$pageContent.trigger('scrollstart');
-                });
-                this.scroller.on('scroll', function() {
-                    self.$pageContent.trigger('scroll');
-                });
-                this.scroller.on('scrollEnd', function() {
-                    self.$pageContent.trigger('scrollend');
-                });
-            } else {
-                //TODO: 实现native的scrollStart和scrollEnd
-            }
-        },
-        scrollTop: function(top, dur) {
-            if (this.scroller) {
-                if (top !== undefined) {
-                    this.scroller.scrollTo(0, -1 * top, dur);
-                } else {
-                    return this.scroller.getComputedPosition().y * -1;
-                }
-            } else {
-                return this.$pageContent.scrollTop(top, dur);
-            }
-            return this;
-        },
-        scrollLeft: function(left, dur) {
-            if (this.scroller) {
-                if (left !== undefined) {
-                    this.scroller.scrollTo(-1 * left, 0);
-                } else {
-                    return this.scroller.getComputedPosition().x * -1;
-                }
-            } else {
-                return this.$pageContent.scrollTop(left, dur);
-            }
-            return this;
-        },
-        on: function(event, callback) {
-            if (this.scroller) {
-                this.scroller.on(event, function() {
-                    callback.call(this.wrapper);
-                });
-            } else {
-                this.$pageContent.on(event, callback);
-            }
-            return this;
-        },
-        off: function(event, callback) {
-            if (this.scroller) {
-                this.scroller.off(event, callback);
-            } else {
-                this.$pageContent.off(event, callback);
-            }
-            return this;
-        },
-        refresh: function() {
-            if (this.scroller) this.scroller.refresh();
-            return this;
-        },
-        scrollHeight: function() {
-            if (this.scroller) {
-                return this.scroller.scrollerHeight;
-            } else {
-                return this.$pageContent[0].scrollHeight;
-            }
-        }
-
-    };
-
-    //Scroller PLUGIN DEFINITION
-    // =======================
-
-    function Plugin(option) {
-        var args = Array.apply(null, arguments);
-        args.shift();
-        var internal_return;
-
-        this.each(function() {
-
-
-            var $this = $(this);
-
-            var options = $.extend({}, $this.dataset(), typeof option === 'object' && option);
-
-            var data = $this.data('scroller');
-            //如果 scroller 没有被初始化，对scroller 进行初始化r
-            if (!data) {
-                //获取data-api的
-                $this.data('scroller', (data = new Scroller(this, options)));
-
-            }
-            if (typeof option === 'string' && typeof data[option] === 'function') {
-                internal_return = data[option].apply(data, args);
-                if (internal_return !== undefined)
-                    return false;
-            }
-
-        });
-
-        if (internal_return !== undefined)
-            return internal_return;
-        else
-            return this;
-
-    }
-
-    var old = $.fn.scroller;
-
-    $.fn.scroller = Plugin;
-    $.fn.scroller.Constructor = Scroller;
-
-
-    // Scroll NO CONFLICT
-    // =================
-
-    $.fn.scroller.noConflict = function() {
-        $.fn.scroller = old;
-        return this;
-    };
-    //添加data-api
-    $(function() {
-        $('[data-toggle="scroller"]').scroller();
-    });
-
-    //统一的接口,带有 .javascript-scroll 的content 进行刷新
-    $.refreshScroller = function(content) {
-        if (content) {
-            $(content).scroller('refresh');
-        } else {
-            $('.javascript-scroll').each(function() {
-              $(this).scroller('refresh');
-            });
-        }
-
-    };
-    //全局初始化方法，会对页面上的 [data-toggle="scroller"]，.content. 进行滚动条初始化
-    $.initScroller = function(option) {
-        this.options = $.extend({}, typeof option === 'object' && option);
-        $('[data-toggle="scroller"],.content').scroller(option);
-    };
-    //获取scroller对象
-    $.getScroller = function(content) {
-        if (content) {
-            return $(content).data('scroller');
-        } else {
-            return $('.content.javascript-scroll').data('scroller');
-        }
-    };
-    //检测滚动类型,
-    //‘js’: javascript 滚动条
-    //‘native’: 原生滚动条
-    $.detectScrollerType = function(content) {
-        if (content) {
-            if ($(content).data('scroller') && $(content).data('scroller').scroller) {
-                return 'js';
-            } else {
-                return 'native';
-            }
-        }
-    };
-
-}(Zepto);
-
-+ function($) {
-    "use strict";
-    //这里实在js滚动时使用的下拉刷新代码。
-
-    var refreshTime = 0;
-    var initPullToRefreshJS = function(pageContainer) {
-        var eventsTarget = $(pageContainer);
-        if (!eventsTarget.hasClass('pull-to-refresh-content')) {
-            eventsTarget = eventsTarget.find('.pull-to-refresh-content');
-        }
-        if (!eventsTarget || eventsTarget.length === 0) return;
-
-        var page = eventsTarget.hasClass('content') ? eventsTarget : eventsTarget.parents('.content');
-        var scroller = $.getScroller(page[0]);
-        if(!scroller) return;
-       
-
-        var container = eventsTarget;
-
-        function handleScroll() {
-            if (container.hasClass('refreshing')) return;
-            if (scroller.scrollTop() * -1 >= 44) {
-                container.removeClass('pull-down').addClass('pull-up');
-            } else {
-                container.removeClass('pull-up').addClass('pull-down');
-            }
-        }
-
-        function handleRefresh() {
-            if (container.hasClass('refreshing')) return;
-            container.removeClass('pull-down pull-up');
-            container.addClass('refreshing transitioning');
-            container.trigger('refresh', {
-                done: function() {
-                    $.pullToRefreshDone(container);
-                }
-            });
-            refreshTime = +new Date();
-        }
-        scroller.on('scroll', handleScroll);
-        scroller.scroller.on('ptr', handleRefresh);
-
-        // Detach Events on page remove
-        function destroyPullToRefresh() {
-            scroller.off('scroll', handleScroll);
-            scroller.scroller.off('ptr', handleRefresh);
-        }
-        eventsTarget[0].destroyPullToRefresh = destroyPullToRefresh;
-
-    };
-
-    var pullToRefreshDoneJS = function(container) {
-        container = $(container);
-        if (container.length === 0) container = $('.pull-to-refresh-content.refreshing');
-        if (container.length === 0) return;
-        var interval = (+new Date()) - refreshTime;
-        var timeOut = interval > 1000 ? 0 : 1000 - interval; //long than bounce time
-        var scroller = $.getScroller(container);
-        setTimeout(function() {
-            scroller.refresh();
-            container.removeClass('refreshing');
-            container.transitionEnd(function() {
-              container.removeClass("transitioning");
-            });
-        }, timeOut);
-    };
-    var pullToRefreshTriggerJS = function(container) {
-        container = $(container);
-        if (container.length === 0) container = $('.pull-to-refresh-content');
-        if (container.hasClass('refreshing')) return;
-        container.addClass('refreshing');
-        var scroller = $.getScroller(container);
-        scroller.scrollTop(44 + 1, 200);
-        container.trigger('refresh', {
-            done: function() {
-                $.pullToRefreshDone(container);
-            }
-        });
-    };
-
-    var destroyPullToRefreshJS = function(pageContainer) {
-        pageContainer = $(pageContainer);
-        var pullToRefreshContent = pageContainer.hasClass('pull-to-refresh-content') ? pageContainer : pageContainer.find('.pull-to-refresh-content');
-        if (pullToRefreshContent.length === 0) return;
-        if (pullToRefreshContent[0].destroyPullToRefresh) pullToRefreshContent[0].destroyPullToRefresh();
-    };
-
-    $._pullToRefreshJSScroll = {
-        "initPullToRefresh": initPullToRefreshJS,
-        "pullToRefreshDone": pullToRefreshDoneJS, 
-        "pullToRefreshTrigger": pullToRefreshTriggerJS, 
-        "destroyPullToRefresh": destroyPullToRefreshJS, 
-    };
-}(Zepto); // jshint ignore:line
+}($);
 
 + function($) {
     'use strict';
-
 
     $.initPullToRefresh = function(pageContainer) {
         var eventsTarget = $(pageContainer);
@@ -4492,8 +4200,9 @@ Device/OS Detection
             isTouched = true;
             isScrolling = undefined;
             wasScrolled = undefined;
-            touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
-            touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+            var position = $.getTouchPosition(e);
+            touchesStart.x = position.x;
+            touchesStart.y = position.y;
             touchStartTime = (new Date()).getTime();
             /*jshint validthis:true */
             container = $(this);
@@ -4501,8 +4210,9 @@ Device/OS Detection
 
         function handleTouchMove(e) {
             if (!isTouched) return;
-            var pageX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
-            var pageY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+            var position = $.getTouchPosition(e);
+            var pageX = position.x;
+            var pageY = position.y;
             if (typeof isScrolling === 'undefined') {
                 isScrolling = !!(isScrolling || Math.abs(pageY - touchesStart.y) > Math.abs(pageX - touchesStart.x));
             }
@@ -4626,67 +4336,17 @@ Device/OS Detection
         if (pullToRefreshContent[0].destroyPullToRefresh) pullToRefreshContent[0].destroyPullToRefresh();
     };
 
+}($); //jshint ignore:line
 
-    //这里是否需要写到 scroller 中去？
-/*    $.initPullToRefresh = function(pageContainer) {
-        var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.initPullToRefresh(item);
-            } else {
-                initPullToRefresh(item);
-            }
-        });
-    };
-
-
-    $.pullToRefreshDone = function(pageContainer) {
-        var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.pullToRefreshDone(item);
-            } else {
-                pullToRefreshDone(item);
-            }
-        });
-    };
-
-
-    $.pullToRefreshTrigger = function(pageContainer) {
-       var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.pullToRefreshTrigger(item);
-            } else {
-                pullToRefreshTrigger(item);
-            }
-        });
-    };
-
-    $.destroyPullToRefresh = function(pageContainer) {
-        var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.destroyPullToRefresh(item);
-            } else {
-                destroyPullToRefresh(item);
-            }
-        });
-    };
-*/
-
-}(Zepto); //jshint ignore:line
-
+/* global $:true */
 + function($) {
     'use strict';
-    /* global Zepto:true */
    
     function handleInfiniteScroll() {
         /*jshint validthis:true */
         var inf = $(this);
-        var scroller = $.getScroller(inf);
-        var scrollTop = scroller.scrollTop();
-        var scrollHeight = scroller.scrollHeight();
+        var scrollTop = inf.scrollTop();
+        var scrollHeight = inf.scrollHeight();
         var height = inf[0].offsetHeight;
         var distance = inf[0].getAttribute('data-distance');
         var virtualListContainer = inf.find('.virtual-list');
@@ -4713,10 +4373,10 @@ Device/OS Detection
 
     }
     $.attachInfiniteScroll = function(infiniteContent) {
-        $.getScroller(infiniteContent).on('scroll', handleInfiniteScroll);
+        $(infiniteContent).on('scroll', handleInfiniteScroll);
     };
     $.detachInfiniteScroll = function(infiniteContent) {
-        $.getScroller(infiniteContent).off('scroll', handleInfiniteScroll);
+        $(infiniteContent).off('scroll', handleInfiniteScroll);
     };
 
     $.initInfiniteScroll = function(pageContainer) {
@@ -4731,9 +4391,9 @@ Device/OS Detection
         }
         pageContainer.on('pageBeforeRemove', detachEvents);
     };
-}(Zepto); 
+}($); 
 
-/* global Zepto:true */
+/* global $:true */
 +function ($) {
   "use strict";
   $(function() {
@@ -4750,12 +4410,12 @@ Device/OS Detection
       $input.parents(".searchbar").removeClass("searchbar-active");
     });
   });
-}(Zepto);
+}($);
 
 /*======================================================
 ************   Panels   ************
 ======================================================*/
-/* global Zepto:true */
+/* global $:true */
 /*jshint unused: false*/
 +function ($) {
   "use strict";
@@ -4842,16 +4502,18 @@ Device/OS Detection
 
       var panelOverlay = $('.panel-overlay');
       var isTouched, isMoved, isScrolling, touchesStart = {}, touchStartTime, touchesDiff, translate, opened, panelWidth, effect, direction;
-      var views = $('.page');
+      var currentPage = $($.getCurrentPage());
 
       function handleTouchStart(e) {
+          currentPage = $($.getCurrentPage());  //page may changed
           if (!$.allowPanelOpen || (!swipePanel && !swipePanelOnlyClose) || isTouched) return;
           if ($('.modal-in, .photo-browser-in').length > 0) return;
           if (!(swipePanelCloseOpposite || swipePanelOnlyClose)) {
               if ($('.panel.active').length > 0 && !panel.hasClass('active')) return;
           }
-          touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
-          touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+          var position = $.getTouchPosition(e);
+          touchesStart.x = position.x;
+          touchesStart.y = position.y;
           if (swipePanelCloseOpposite || swipePanelOnlyClose) {
               if ($('.panel.active').length > 0) {
                   side = $('.panel.active').hasClass('panel-left') ? 'left' : 'right';
@@ -4884,8 +4546,9 @@ Device/OS Detection
           if (!isTouched) return;
           if(!panel[0]) return;
           if (e.f7PreventPanelSwipe) return;
-          var pageX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
-          var pageY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+          var position = $.getTouchPosition(e);
+          var pageX = position.x;
+          var pageY = position.y;
           if (typeof isScrolling === 'undefined') {
               isScrolling = !!(isScrolling || Math.abs(pageY - touchesStart.y) > Math.abs(pageX - touchesStart.x));
           }
@@ -4930,7 +4593,6 @@ Device/OS Detection
                   }
               }
               isTouched = false;
-            console.log(3);
               isMoved = false;
               return;
           }
@@ -4973,13 +4635,13 @@ Device/OS Detection
               }
           }
           if (effect === 'reveal') {
-              views.transform('translate3d(' + translate + 'px,0,0)').transition(0);
+              currentPage.transform('translate3d(' + translate + 'px,0,0)').transition(0);
               panelOverlay.transform('translate3d(' + translate + 'px,0,0)');
-              //app.pluginHook('swipePanelSetTransform', views[0], panel[0], Math.abs(translate / panelWidth));
+              //app.pluginHook('swipePanelSetTransform', currentPage[0], panel[0], Math.abs(translate / panelWidth));
           }
           else {
               panel.transform('translate3d(' + translate + 'px,0,0)').transition(0);
-              //app.pluginHook('swipePanelSetTransform', views[0], panel[0], Math.abs(translate / panelWidth));
+              //app.pluginHook('swipePanelSetTransform', currentPage[0], panel[0], Math.abs(translate / panelWidth));
           }
       }
       function handleTouchEnd(e) {
@@ -5049,7 +4711,7 @@ Device/OS Detection
                       panel.css({display: ''});
                   }
                   else {
-                      var target = effect === 'reveal' ? views : panel;
+                      var target = effect === 'reveal' ? currentPage : panel;
                       $('body').addClass('panel-closing');
                       target.transitionEnd(function () {
                           $.allowPanelOpen = true;
@@ -5060,8 +4722,8 @@ Device/OS Detection
               }
           }
           if (effect === 'reveal') {
-              views.transition('');
-              views.transform('');
+              currentPage.transition('');
+              currentPage.transform('');
           }
           panel.transition('').transform('');
           panelOverlay.css({display: ''}).transform('');
@@ -5072,7 +4734,7 @@ Device/OS Detection
   };
 
   $.initSwipePanels();
-}(Zepto);
+}($);
 
 // jshint ignore: start
 /*
@@ -5101,6 +4763,7 @@ Device/OS Detection
   }
 
   Router.prototype.defaults = {
+    transition: true
   };
 
   Router.prototype.init = function() {
@@ -5138,20 +4801,39 @@ Device/OS Detection
     }, false);
   }
 
-  //加载一个页面,传入的参数是页面id或者url
-  Router.prototype.loadPage = function(url, noAnimation) {
+  //load new page, and push to history
+  Router.prototype.loadPage = function(url, noAnimation, replace) {
+
+    var param = url;
+
+    if(noAnimation === undefined) {
+      noAnimation = !this.defaults.transition;
+    }
+
+    if(typeof url === typeof "a") {
+      param = {
+        url: url,
+        noAnimation: noAnimation,
+        replace: replace
+      }
+    }
+
+    var url = param.url, noAnimation = param.noAnimation, replace = param.replace;
 
     this.getPage(url, function(page) {
 
-      var pageid = this.getCurrentPage()[0].id;
-      this.pushBack({
-        url: url,
+      var currentPage = this.getCurrentPage();
+
+      var pageid = currentPage[0].id;
+
+      this[replace ? "replaceBack" : "pushBack"]({
+        url: location.href,
         pageid: "#"+ pageid,
         id: this.getCurrentStateID(),
         animation: !noAnimation
       });
 
-      //删除全部forward
+      //remove all forward page
       var forward = JSON.parse(this.state.getItem("forward") || "[]");
       for(var i=0;i<forward.length;i++) {
         $(forward[i].pageid).each(function() {
@@ -5161,17 +4843,31 @@ Device/OS Detection
       }
       this.state.setItem("forward", "[]");  //clearforward
 
-      page.insertAfter($(".page")[0]);
+      var duplicatePage = $("#"+$(page)[0].id);
+
+      page.insertBefore($(".page")[0]);
+
+      if(duplicatePage[0] !== page[0]) duplicatePage.remove(); //if inline mod, the duplicate page is current page
 
       var id = this.genStateID();
       this.setCurrentStateID(id);
 
-      this.pushState(url, id);
+      this[replace ? "replaceState" : "pushState"](url, id);
 
       this.forwardStack  = [];  //clear forward stack
       
       this.animatePages(this.getCurrentPage(), page, null, noAnimation);
     });
+  }
+
+  //load new page and replace current page inhistory
+  Router.prototype.replacePage = function(url, noAnimation) {
+    return this.loadPage(url, noAnimation, true);
+  }
+
+  //reload current page
+  Router.prototype.reloadPage = function() {
+    return this.replacePage(location.href, true);
   }
 
   Router.prototype.animatePages = function (leftPage, rightPage, leftToRight, noTransition) {
@@ -5386,6 +5082,12 @@ Device/OS Detection
     stack.push(h);
     this.stack.setItem("back", JSON.stringify(stack));
   }
+  Router.prototype.replaceBack = function(h) {
+    var stack = JSON.parse(this.stack.getItem("back"));
+    stack.pop();
+    stack.push(h);
+    this.stack.setItem("back", JSON.stringify(stack));
+  }
   Router.prototype.popForward = function() {
     var stack = JSON.parse(this.stack.getItem("forward"));
     if(!stack.length) return null;
@@ -5408,9 +5110,13 @@ Device/OS Detection
     window.dispatchEvent(e);
   };
 
+
   $(function() {
     if(!$.smConfig.router) return;
+
     var router = $.router = new Router();
+    router.defaults = Router.prototype.defaults;
+
     $(document).on("click", "a", function(e) {
       var $target = $(e.currentTarget);
       if($target.hasClass("external") ||
@@ -5427,13 +5133,13 @@ Device/OS Detection
       }
 
       if(!url || url === "#") return;
-      router.loadPage(url, $target.hasClass("no-transition"));
+      router.loadPage(url, $target.hasClass("no-transition") ? true : undefined, $target.hasClass("replace") ? true : undefined);  //undefined is different to false
     })
   });
-}(Zepto);
+}($);
 // jshint ignore: end
 
-/* global Zepto:true */
+/* global $:true */
 /*jshint unused: false*/
 +function ($) {
   "use strict";
@@ -5449,7 +5155,6 @@ Device/OS Detection
     var $page = page ? $(page) : getPage();
     if(!$page[0]) $page = $(document.body);
     var $content = $page.hasClass("content") ? $page : $page.find(".content");
-    $content.scroller();  //注意滚动条一定要最先初始化
 
     $.initPullToRefresh($content);
     $.initInfiniteScroll($content);
@@ -5457,6 +5162,7 @@ Device/OS Detection
 
     //extend
     if($.initSwiper) $.initSwiper($content);
+    if($.initSwipeout) $.initSwipeout();  // don't pass $content because the swipeout element is not $content
   };
 
 
@@ -5502,4 +5208,4 @@ Device/OS Detection
   });
 
 
-}(Zepto);
+}($);
