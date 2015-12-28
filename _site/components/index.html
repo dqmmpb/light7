@@ -3359,7 +3359,7 @@
 
 </article>
 
-<article class="component active">
+<article class="component active" data-url="contacts-list" id='contacts-list'>
   <h3 class="component-title">Contacts List</h3>
   <p class="component-description">Show contacts</p>
   <p>Contacts list is a particular case of <a href="list-view.html#grouped-lists">Grouped Lists</a> with two differences:</p>
@@ -3371,6 +3371,11 @@
       <p><code>page-content</code> should have additional <code>contacts-content</code> class</p>
     </li>
   </ul>
+
+  <p>Contacts list will auto have a iOS-like index list on the right side - it's named index list. Try it on the demo on the right side -&gt;</p>
+  <p>The index list is a JS component, it will auto init when page init. You should init it like this if your contacts list is load by ajax:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s2">".contacts-block"</span><span class="p">).</span><span class="nx">index</span><span class="p">();</span></code></pre></figure>
 
   <div class="component-example component-example-fullbleed">
   </div>

@@ -3126,6 +3126,30 @@ input[type="button"].button {
   width: 1.5rem;
   height: 1.5rem;
 }
+.index-list-bar {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 100;
+  padding: .5rem 0;
+  margin: 0;
+  font-size: .6rem;
+  color: #0894ec;
+  text-align: right;
+  list-style: none;
+  -webkit-transform: translate3d(0, -50%, 0);
+          transform: translate3d(0, -50%, 0);
+}
+.index-list-bar li {
+  display: block;
+  width: 2.5rem;
+  text-align: right;
+}
+.index-list-bar strong {
+  display: inline-block;
+  width: 1rem;
+  text-align: center;
+}
 /* === Modals === */
 .modal-overlay,
 .preloader-indicator-overlay,
