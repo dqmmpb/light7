@@ -702,7 +702,7 @@ body.panel-closing .page{-webkit-transition:.4s;-o-transition:.4s;transition:.4s
 .city-picker .col-province{width:5rem}
 .city-picker .col-city{width:6rem}
 .city-picker .col-district{width:5rem}
-.notification{position:absolute;top:-2rem;right:0;left:0;z-index:9999;width:100%;min-height:5rem;padding-top:2rem;font-size:.65rem;color:#fff;background-color:rgba(0,0,0,.85);-webkit-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}
+.notification{position:absolute;top:-2rem;right:0;left:0;z-index:9999;width:100%;min-height:4rem;padding-top:2rem;font-size:.65rem;color:#fff;background-color:rgba(0,0,0,.85);-webkit-transition:.4s;-o-transition:.4s;transition:.4s;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}
 .notification.notification-in{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
 .notification.touching{-webkit-transition-duration:0s;-o-transition-duration:0s;transition-duration:0s}
 .notification .notification-inner{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;padding:.3rem .6rem 1rem .6rem;-webkit-box-align:start;-ms-flex-align:start;-webkit-align-items:flex-start;align-items:flex-start}

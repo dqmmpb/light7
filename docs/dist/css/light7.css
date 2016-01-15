@@ -4217,7 +4217,7 @@ body.panel-closing .page {
   left: 0;
   z-index: 9999;
   width: 100%;
-  min-height: 5rem;
+  min-height: 4rem;
   padding-top: 2rem;
   font-size: .65rem;
   color: white;
