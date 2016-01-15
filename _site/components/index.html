@@ -107,8 +107,9 @@
   <li><a href="#cards">Card</a></li>
   <li><a href="#pulltorefresh">Pull to refresh</a></li>
   <li><a href="#infinitescroll">Infinit scroll</a></li>
+  <li><a href="#notification">Notification</a> <span class='new'>New</span></li>
   <li><a href="#icons">icons</a></li>
-  <li><a href="#router">router <span class='new'>New</span></a></li>
+  <li><a href="#router">router</a></li>
   <li><a href="#themes">Night Theme</a></li>
   <li><a href="#colors">Color themes</a></li>
 </div>
@@ -2422,6 +2423,8 @@
         <td>true</td>
         <td>Close all previous modal when open a new modal.</td>
       </tr> 
+    </tbody>
+  </table>
 
 </article>
 
@@ -3375,7 +3378,7 @@
   <p>Contacts list will auto have a iOS-like index list on the right side - it's named index list. Try it on the demo on the right side -&gt;</p>
   <p>The index list is a JS component, it will auto init when page init. You should init it like this if your contacts list is load by ajax:</p>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s2">".contacts-block"</span><span class="p">).</span><span class="nx">index</span><span class="p">();</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s2">".contacts-block"</span><span class="p">).</span><span class="nx">indexList</span><span class="p">();</span></code></pre></figure>
 
   <div class="component-example component-example-fullbleed">
   </div>
@@ -4113,6 +4116,79 @@ $(function() {
 </article>
 
 
+
+  <article class="component active" id='notification' data-url="notification">
+  <h2 class="component-title">Notification</h2>
+  <p class="component-description">You can show some notifications. It's a iOS like notification that you can set icon, title and text, and you can alose drag to close the notification.</p>
+
+  <p>Use JavaScript to open/close notification:</p>
+  
+<figure class="highlight"><pre><code class="language-js" data-lang="js">  
+<span class="nx">$</span><span class="p">.</span><span class="nx">notification</span><span class="p">({</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s2">"Baby"</span><span class="p">,</span>
+  <span class="na">text</span><span class="p">:</span> <span class="s2">"I miss you"</span><span class="p">,</span>
+  <span class="na">media</span><span class="p">:</span> <span class="s2">"&lt;img src='...'&gt;"</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="s2">"123"</span><span class="p">,</span>
+  <span class="na">onClick</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">"Click"</span> <span class="o">+</span> <span class="nx">data</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="na">onClose</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">"Close "</span><span class="o">+</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">//close notification</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">closeNotification</span><span class="p">();</span></code></pre></figure>
+  
+  <p>There is only one notification can shown in the same time. It means that the new notification will replace the old one.</p>
+
+
+  <h3>Params</h3>
+
+  <table>
+    <tr>
+      <th>Param</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>undefined</td>
+      <td>Title of notification</td>
+    </tr>
+    <tr>
+      <td>text</td>
+      <td>undefined</td>
+      <td>Text of notification</td>
+    </tr>
+    <tr>
+      <td>media</td>
+      <td>undefined</td>
+      <td>Media of notification. It should be a icon with image or iconfont.</td>
+    </tr>
+    <tr>
+      <td>data</td>
+      <td>undefined</td>
+      <td>This data will be the param of onClick and onClose function.</td>
+    </tr>
+    <tr>
+      <td>onClick</td>
+      <td>undefined</td>
+      <td>Callback when user click.</td>
+    </tr>
+    <tr>
+      <td>onClose</td>
+      <td>undefined</td>
+      <td>Callback when notification is closed.</td>
+    </tr>
+    <tr>
+      <td>time</td>
+      <td>4000</td>
+      <td>The duration of notification.</td>
+    </tr>
+  </table>
+</article>
 
   <article class="component no-border" id="icons">
   <h2 class="component-title">Icons</h2>
