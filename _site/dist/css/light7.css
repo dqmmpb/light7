@@ -4072,6 +4072,7 @@ body.panel-closing .page {
   display: -ms-flexbox;
   display: -webkit-flex;
   display:         flex;
+  width: 100%;
   padding: 0;
   font-size: 1.2rem;
   text-align: right;

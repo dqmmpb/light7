@@ -680,7 +680,7 @@ body.panel-closing .page{-webkit-transition:.4s;-o-transition:.4s;transition:.4s
 @media (orientation:landscape) and (max-height:415px){.picker-columns:not(.picker-modal-inline){height:10rem}
 }
 .popover.popover-picker-columns{width:14rem}
-.picker-items{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;padding:0;font-size:1.2rem;text-align:right;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-mask-box-image:-webkit-linear-gradient(bottom,transparent,transparent 5%,#fff 20%,#fff 80%,transparent 95%,transparent);-webkit-mask-box-image:linear-gradient(to top,transparent,transparent 5%,#fff 20%,#fff 80%,transparent 95%,transparent)}
+.picker-items{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;width:100%;padding:0;font-size:1.2rem;text-align:right;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-mask-box-image:-webkit-linear-gradient(bottom,transparent,transparent 5%,#fff 20%,#fff 80%,transparent 95%,transparent);-webkit-mask-box-image:linear-gradient(to top,transparent,transparent 5%,#fff 20%,#fff 80%,transparent 95%,transparent)}
 .bar+.picker-items{height:10.8rem}
 .picker-items-col{position:relative;max-height:100%;overflow:hidden}
 .picker-items-col.picker-items-col-left{text-align:left}
