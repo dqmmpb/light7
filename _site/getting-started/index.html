@@ -62,7 +62,7 @@
           <a class="docs-nav-item" href="/changelog">Changelog</a>
           <a class="docs-nav-item" href="https://github.com/lihongxun945/light7" target="_blank">Github</a>
           <a class="docs-nav-item" href="/about">About</a>
-          <a class="docs-nav-item" href="http://123.56.245.102/">Chinese</a>
+          <a class="docs-nav-item" href="http://123.56.245.102/">中文</a>
         </div>
       </nav>
     </div>
@@ -85,9 +85,14 @@
         <h2>Create Layout HTML</h2>
         <p class="lead"></p>
 
-        <h3>1. Include Static Files</h3>
+        <h3>1. Install / Download</h3>
+        <p>First of all, you should download jQuery or Zepto. You can get zepto.js on <a href="http://zeptojs.com/">http://zeptojs.com/</a>, and jQuery on <a href="http://jquery.com/">http://jquery.com/</a>. It's recommand to use jQuery instead of Zepto.</p>
+        <p>Then, you should install Light7. It's recommand to install Light7 with npm - <code>npm install light7</code>.</p>
 
-        <p>You can get zepto.js on [http://zeptojs.com/](http://zeptojs.com/), and jQuery on [http://jquery.com/](http://jquery.com/). It's recommand to use jQuery instead of Zepto.</p>
+        <p>It's recommand to clone <a href="https://github.com/lihongxun945/light7" target="_blank">light7 on github</a> and compile by yourself, if you don't want to use npm. You can change to <code>build</code> branch if you don't want to build by yourself, there are all compiled files in <code>dist</code> folder. Or, you can just click <a href="https://github.com/lihongxun945/light7/archive/build.zip" target="_blank">Here to download</a>.
+
+        <h3>2. Include Static Files</h3>
+
  
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/light7.min.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">'text/javascript'</span> <span class="na">src=</span><span class="s">'js/jquery.min.js'</span> <span class="na">charset=</span><span class="s">'utf-8'</span><span class="nt">&gt;&lt;/script&gt;</span>
@@ -96,12 +101,11 @@
 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/light7-swiper.min.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">'text/javascript'</span> <span class="na">src=</span><span class="s">'js/light7-swiper.min.js'</span> <span class="na">charset=</span><span class="s">'utf-8'</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
-<p>It's recommand to clone <a href="https://github.com/lihongxun945/light7" target="_blank">light7 on github</a> and compile by yourself。You can change to <code>build</code> branch if you don't want to build by yourself, there are all compiled files in <code>dist</code> folder. Or, you can click <a href="https://github.com/lihongxun945/light7/archive/build.zip" target="_blank">Here to download</a>.
 
-        <h3>2. Debug</h3>
+        <h3>3. Debug</h3>
         <p>The "min" in file name means it's compressed. You should include <code>light7.js</code> instead of <code>light7.min.js</code> if you want to debug the code.</p>
 
-        <h3>Init Layout</h3>
+        <h3>4. Init Layout</h3>
         <p>The init Layout:</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
