@@ -13,12 +13,8 @@
   ],
   "homepage": "http://light7.org/",
   "main": [
-    "dist/css/light7.min.css",
-    "dist/js/light7.min.js",
-    "dist/fonts/iconfont-sm.eot",
-    "dist/fonts/iconfont-sm.svg",
-    "dist/fonts/iconfont-sm.ttf",
-    "dist/fonts/iconfont-sm.woff"
+    "./dist/css/light7.min.css",
+    "./dist/js/light7.min.js"
   ],
   "ignore": [
     "_config.yml",
