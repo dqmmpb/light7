@@ -11,7 +11,7 @@
     "mobile",
     "prototype"
   ],
-  "homepage": "http://goratchet.com",
+  "homepage": "http://light7.org/",
   "main": [
     "dist/css/light7.min.css",
     "dist/js/light7.min.js",
