@@ -1485,6 +1485,7 @@ body .color-success:active,
   padding-top: .4rem;
   padding-right: .75rem;
   padding-bottom: .35rem;
+  overflow: hidden;
   border-bottom: 1px solid #e7e7e7;
 
   -webkit-box-flex: 1;
