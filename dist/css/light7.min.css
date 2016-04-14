@@ -382,7 +382,7 @@ input[type=button].button,input[type=submit].button{width:100%}
 .button.button-fill{line-height:1.35rem;color:#fff;background:#0894ec;border:none}
 .button.button-fill.active,.button.button-fill:active{background:#0a8ddf}
 .button.button-fill.button-big{line-height:2.4rem}
-.button .button-link{padding-top:.3rem;padding-bottom:.3rem;color:#0894ec;background-color:transparent;border:0}
+.button.button-link{padding-top:1px;padding-bottom:1px;color:#0894ec;background-color:transparent;border:0}
 .button i.icon:first-child{margin-right:.5rem}
 .button i.icon:last-child{margin-left:.5rem}
 .button i.icon:first-child:last-child{margin-right:0;margin-left:0}

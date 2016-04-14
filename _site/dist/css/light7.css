@@ -2315,9 +2315,9 @@ input[type="button"].button {
 .button.button-fill.button-big {
   line-height: 2.4rem;
 }
-.button .button-link {
-  padding-top: .3rem;
-  padding-bottom: .3rem;
+.button.button-link {
+  padding-top: 1px;
+  padding-bottom: 1px;
   color: #0894ec;
   background-color: transparent;
   border: 0;
