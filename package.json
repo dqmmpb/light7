@@ -17,7 +17,7 @@
   "less": "less/light7.less",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lihongxun945/light7"
+    "url": "https://github.com/dqmmpb/light7.git"
   },
   "license": "MIT",
   "scripts": {
