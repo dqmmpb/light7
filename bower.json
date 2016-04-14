@@ -1,6 +1,6 @@
 {
-  "name": "ratchet",
-  "description": "Build mobile apps with simple HTML, CSS, and JS components.",
+  "name": "light7-xmdd",
+  "description": "Build mobile apps with simple HTML, CSS, and JS components. Fork from https://github.com/lihongxun945/light7.git",
   "version": "2.0.2",
   "keywords": [
     "css",
@@ -13,13 +13,12 @@
   ],
   "homepage": "http://goratchet.com",
   "main": [
-    "sass/ratchet.scss",
-    "dist/css/ratchet.css",
-    "dist/js/ratchet.js",
-    "dist/fonts/ratchicons.eot",
-    "dist/fonts/ratchicons.svg",
-    "dist/fonts/ratchicons.ttf",
-    "dist/fonts/ratchicons.woff"
+    "dist/css/light7.min.css",
+    "dist/js/light7.min.js",
+    "dist/fonts/iconfont-sm.eot",
+    "dist/fonts/iconfont-sm.svg",
+    "dist/fonts/iconfont-sm.ttf",
+    "dist/fonts/iconfont-sm.woff"
   ],
   "ignore": [
     "_config.yml",
