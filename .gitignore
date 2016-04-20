@@ -6,6 +6,6 @@ dist/
 .sass-cache/
 .DS_Store
 _site/*
-.idea
+.idea/
 *.orig
 *.log

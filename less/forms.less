@@ -120,9 +120,9 @@
 html.android {
     .label-switch input[type="checkbox"] {
         &+ .checkbox {
-            transition-duration: 0;
+            transition-duration: 0ms;
             &:after, &:before {
-                transition-duration: 0;
+                transition-duration: 0ms;
             }
         }
     }
@@ -222,10 +222,18 @@ label.label-checkbox {
             width: 0.6rem;
             height: 0.45rem;
         }
+
+        &.round {
+            border-radius: 1.1rem;
+        }
+
+        &.square {
+            border-radius: 0.2rem;
+        }
     }
     input[type="checkbox"], input[type="radio"] {
         display: none;
-        &:checked + .item-media{
+        &:checked + .item-media, &:checked ~ .item-inner + .item-media {
             i.icon-form-checkbox {
                 border: none;
                 background-color: @color-primary;
@@ -236,6 +244,10 @@ label.label-checkbox {
                 -webkit-background-size: 0.6rem 0.45rem;
                 background-size: 0.6rem 0.45rem;
             }
+        }
+
+        & ~ .item-inner + .item-media {
+            padding-right: 0.75rem;
         }
     }
 }

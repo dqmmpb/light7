@@ -1,5 +1,5 @@
 //
-// Push styles (to be used with push.js)
+// Push styles (to be used with push.js)，Light7中暂时不使用
 // --------------------------------------------------
 
 .content {
@@ -41,7 +41,7 @@
     position: absolute;
     top: 50%;
     display: inline-block;
-    font-family: Ratchicons;
+    font-family:"iconfont-sm" !important;
     font-size: inherit;
     line-height: 1;
     color: #bbb;
@@ -50,13 +50,15 @@
     transform: translateY(-50%);
   }
 }
+
+// content的值依赖字体
 .navigate-left:after,
 .push-left:after {
   left: 0.75rem;
-  content: '\e822';
+  content: '\e614';
 }
 .navigate-right:after,
 .push-right:after{
   right: 0.75rem;
-  content: '\e826';
+  content: '\e613';
 }

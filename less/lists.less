@@ -89,6 +89,7 @@
         padding-top: 0.4rem;
         padding-bottom: 0.35rem;
         min-height: 2.2rem;
+        overflow: hidden;
         box-sizing: border-box;
         .flexbox();
         -webkit-box-flex:1;
@@ -195,7 +196,7 @@
         .swipeout-content, .swipeout-actions-right a, .swipeout-actions-left a, .swipeout-overswipe {
             -webkit-transition: 300ms;
             transition: 300ms;
-        }    
+        }
     }
     .swipeout-content {
         position: relative;
@@ -297,7 +298,7 @@
             }
         }
         + .list-group ul {
-            .hairline-remove(top);   
+            .hairline-remove(top);
         }
     }
     .item-divider, .list-group-title {
@@ -315,7 +316,6 @@
     .list-group-title {
         position: relative;
         position: -webkit-sticky;
-        position: -moz-sticky;
         position: sticky;
         top: 0;
         z-index: 20;

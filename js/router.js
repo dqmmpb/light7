@@ -129,7 +129,7 @@
       this[replace || reload ? "replaceState" : "pushState"](url, id);
 
       this.forwardStack  = [];  //clear forward stack
-      
+
       this.animatePages(this.getCurrentPage(), page, null, noAnimation);
     });
   }
