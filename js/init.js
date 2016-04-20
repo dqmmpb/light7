@@ -31,7 +31,7 @@
     $(window).on("pageLoadStart", function() {
       $.showIndicator();
     });
-    $(document).on("pageAnimationStart", function() {
+    $(window).on("pageAnimationStart", function() {
       $.hideIndicator();
     });
     $(window).on("pageLoadCancel", function() {

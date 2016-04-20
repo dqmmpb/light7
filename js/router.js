@@ -1,3 +1,4 @@
+// jshint ignore: start
 /**
  * 路由
  *
@@ -60,7 +61,7 @@
  * 注: 以 _ 开头的函数标明用于此处内部使用，可根据需要随时重构变更，不对外确保兼容性。
  *
  */
-+function($) {
++ function ($) {
   'use strict';
 
   if (!window.CustomEvent) {
@@ -946,6 +947,7 @@
     });
   });
 }($);
+// jshint ignore: end
 
 /**
  * @typedef {Object} State
