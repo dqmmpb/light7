@@ -121,6 +121,31 @@ $(function () {
     });
   });
 
+  $(document).on('pageInit', '#page-city-picker', function(e, id, page) {
+
+    var citypicker = $(page).find('#city-picker').cityPicker({
+      code: true,
+      onChangeComplete: function(picker) {
+        var code = this.getCode(picker);
+        var value = [];
+        if(picker.value.length === 3) {
+          value.push(picker.value[1]);
+          value.push(picker.value[2]);
+        } else {
+          value = picker.value;
+        }
+
+        /*$('#city-picker-code').val(picker.params.getFormat(picker, code));*/
+        $('#city-picker-value').val(value.join(' '));
+      },
+      rawCitiesData: customCitiesData
+    });
+    $(page).find('#city-picker-value').click(function(event){
+      event.preventDefault();
+      citypicker.trigger('click');
+    });
+  });
+
 
   $(document).on("pageInit", "#page-ptr-tabs", function(e, id, page) {
     $(page).find(".pull-to-refresh-content").on('refresh', function(e) {

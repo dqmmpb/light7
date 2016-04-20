@@ -1,8 +1,12 @@
-(function ($) {
+/*======================================================
+ ************   City Picker   ************
+ ======================================================*/
+/* global $:true */
+/*jshint unused: false*/
++function ($) {
   'use strict';
 
   $.fn.cityPicker = function (params) {
-
 
     var raw = params.rawCitiesData || $.smConfig.rawCitiesData;
 
@@ -184,4 +188,4 @@
     });
   };
 
-})(jQuery);
+}($);
