@@ -66,7 +66,7 @@
   };
 
   $(document).on("click", ".open-panel", function(e) {
-    var panel = $(e.target).data(panel);
+    var panel = $(e.target).data('panel');
     $.openPanel(panel);
   });
   $(document).on("click", ".close-panel, .panel-overlay", function(e) {
