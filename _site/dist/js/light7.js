@@ -5458,6 +5458,8 @@ Device/OS Detection
     // 如果 panel 的 effect 是 reveal 时,似乎是 page 的动画或别的样式原因导致了 transitionEnd 事件不会触发
     // 这里暂且处理一下
     $('body').removeClass('panel-closing');
+    // transitionEnd 事件不被触发，暂时处理如下
+    $('.panel-reveal').css({display: ''});
     $.allowPanelOpen = true;
   });
 
