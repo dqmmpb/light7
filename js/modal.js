@@ -436,7 +436,7 @@
             var currentPages = modal.find('.popup-group-page.page-current');
             if(currentPages.length <= 0) {
                 currentPage = groupPage[0];
-            } else if(currentPages.length == 1) {
+            } else if(currentPages.length === 1) {
                 currentPage = currentPages[0];
             } else {
                 modal.find('.popup-group-page.page-current:gt(1)').removeClass('page-current');
@@ -477,7 +477,7 @@
         var modal = modalPage.parent('.popup-group');
         var currentPage = modal.find('.popup-group-page.page-current');
 
-        var stack = modal.data('stack') ? modal.data('stack') : new Array();
+        var stack = modal.data('stack') ? modal.data('stack') : [];
 
         stack.push(currentPage[0]);
         var leftPage = $(currentPage[0]);
@@ -526,7 +526,7 @@
 
         var modal = modalPage.parent('.popup-group');
 
-        var stack = modal.data('stack') ? modal.data('stack') : new Array();
+        var stack = modal.data('stack') ? modal.data('stack') : [];
 
         if(stack.length > 0) {
             var prePage = stack.pop();
@@ -775,9 +775,10 @@
             $(popupgroup).data('stack', null);
             $.closeModal(popupgroup);
         }
+
+        var popupGroupPage;
         // Popu Group Page
         if (clicked.hasClass('open-popup-group-page')) {
-            var popupGroupPage;
             if (clickedData.popupGroupPage) {
                 popupGroupPage = clickedData.popupGroupPage;
             }
@@ -785,7 +786,6 @@
             $.popupgrouppage(popupGroupPage);
         }
         if (clicked.hasClass('close-popup-group-page')) {
-            var popupGroupPage;
             if (clickedData.popupGroupPage) {
                 popupGroupPage = clickedData.popupGroupPage;
             }

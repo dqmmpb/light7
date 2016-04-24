@@ -3359,6 +3359,7 @@ input.modal-text-input.modal-text-input-double + input.modal-text-input {
   border-left: 0;
 }
 .popup,
+.popup-group,
 .login-screen {
   position: absolute;
   top: 0;
@@ -3379,19 +3380,23 @@ input.modal-text-input.modal-text-input-double + input.modal-text-input {
           transform: translate3d(0, 100%, 0);
 }
 .popup.modal-in,
+.popup-group.modal-in,
 .login-screen.modal-in,
 .popup.modal-out,
+.popup-group.modal-out,
 .login-screen.modal-out {
   -webkit-transition-duration: 400ms;
        -o-transition-duration: 400ms;
           transition-duration: 400ms;
 }
 .popup.modal-in,
+.popup-group.modal-in,
 .login-screen.modal-in {
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
 .popup.modal-out,
+.popup-group.modal-out,
 .login-screen.modal-out {
   -webkit-transform: translate3d(0, 100%, 0);
           transform: translate3d(0, 100%, 0);
@@ -3400,7 +3405,8 @@ input.modal-text-input.modal-text-input-double + input.modal-text-input {
 .login-screen.modal-out {
   display: block;
 }
-html.with-statusbar-overlay .popup {
+html.with-statusbar-overlay .popup,
+html.with-statusbar-overlay .popup-group {
   top: 1rem;
   height: -webkit-calc(100% - 1rem);
   height:         calc(100% - 1rem);
@@ -3409,7 +3415,8 @@ html.with-statusbar-overlay .popup-overlay {
   z-index: 9800;
 }
 @media all and (max-width: 629px), (max-height: 629px) {
-  html.with-statusbar-overlay .popup {
+  html.with-statusbar-overlay .popup,
+  html.with-statusbar-overlay .popup-group {
     top: 1rem;
     height: -webkit-calc(100% - 1rem);
     height:         calc(100% - 1rem);
@@ -3419,10 +3426,80 @@ html.with-statusbar-overlay .popup-overlay {
   }
 }
 html.with-statusbar-overlay .login-screen,
-html.with-statusbar-overlay .popup.tablet-fullscreen {
+html.with-statusbar-overlay .popup.tablet-fullscreen,
+html.with-statusbar-overlay .popup-group.tablet-fullscreen {
   top: 1rem;
   height: -webkit-calc(100% - 1rem);
   height:         calc(100% - 1rem);
+}
+.popup.popright,
+.popup-group.popright {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+.popup.popright.modal-in,
+.popup-group.popright.modal-in {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.popup.popright.modal-out,
+.popup-group.popright.modal-out {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+.popup.popleft,
+.popup-group.popleft {
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+}
+.popup.popleft.modal-in,
+.popup-group.popleft.modal-in {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.popup.popleft.modal-out,
+.popup-group.popleft.modal-out {
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+}
+.popup.popdown,
+.popup-group.popdown {
+  -webkit-transform: translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0);
+}
+.popup.popdown.modal-in,
+.popup-group.popdown.modal-in {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.popup.popdown.modal-out,
+.popup-group.popdown.modal-out {
+  -webkit-transform: translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0);
+}
+.popup-group {
+  overflow: hidden;
+}
+.popup-group .popup-group-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10400;
+  display: none;
+  width: 100%;
+  height: 100%;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
+}
+.popup-group .popup-group-page.page-current,
+.popup-group .popup-group-page.page-from-center-to-left,
+.popup-group .popup-group-page.page-from-center-to-right,
+.popup-group .popup-group-page.page-from-right-to-center,
+.popup-group .popup-group-page.page-from-left-to-center {
+  display: block;
 }
 .modal .preloader {
   width: 1.7rem;

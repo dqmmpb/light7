@@ -2328,6 +2328,152 @@ Device/OS Detection
      
         return modal[0];
     };
+    $.popupgroup = function (modal, removeOnClose) {
+        if (typeof removeOnClose === 'undefined') removeOnClose = true;
+        if (typeof modal === 'string' && modal.indexOf('<') >= 0) {
+            var _modal = document.createElement('div');
+            _modal.innerHTML = modal.trim();
+            if (_modal.childNodes.length > 0) {
+                modal = _modal.childNodes[0];
+                if (removeOnClose) modal.classList.add('remove-on-close');
+                $(defaults.modalContainer).append(modal);
+            }
+            else return false; //nothing found
+        }
+        modal = $(modal);
+        if (modal.length === 0) return false;
+        modal.show();
+        if (modal.find('.' + defaults.viewClass).length > 0) {
+            $.sizeNavbars(modal.find('.' + defaults.viewClass)[0]);
+        }
+
+        var groupPage = modal.find('.popup-group-page');
+        if(groupPage.length <= 0) return modal[0];
+
+        var currentPage;
+
+        if($(groupPage).hasClass('page-current')) {
+            var currentPages = modal.find('.popup-group-page.page-current');
+            if(currentPages.length <= 0) {
+                currentPage = groupPage[0];
+            } else if(currentPages.length === 1) {
+                currentPage = currentPages[0];
+            } else {
+                modal.find('.popup-group-page.page-current:gt(1)').removeClass('page-current');
+                currentPage = currentPages[0];
+            }
+        } else {
+            currentPage = groupPage[0];
+        }
+        if(currentPage)
+            $(currentPage).addClass('page-current');
+        $.openModal(modal);
+
+        return modal[0];
+    };
+
+    $.popupgrouppage = function (modalPage, removeOnClose) {
+
+        var removeClasses = 'page-left page-right page-from-center-to-left page-from-center-to-right page-from-right-to-center page-from-left-to-center';
+
+        function afterAnimation(page) {
+            page.removeClass(removeClasses);
+        }
+
+        if (typeof removeOnClose === 'undefined') removeOnClose = true;
+        if (typeof modalPage === 'string' && modalPage.indexOf('<') >= 0) {
+            var _modalPage = document.createElement('div');
+            _modalPage.innerHTML = modalPage.trim();
+            if (_modalPage.childNodes.length > 0) {
+                modalPage = _modalPage.childNodes[0];
+                if (removeOnClose) modalPage.classList.add('remove-on-close');
+                $(defaults.modalPageContainer).append(modalPage);
+            }
+            else return false; //nothing found
+        }
+        modalPage = $(modalPage);
+        if (modalPage.length === 0) return false;
+
+        var modal = modalPage.parent('.popup-group');
+        var currentPage = modal.find('.popup-group-page.page-current');
+
+        var stack = modal.data('stack') ? modal.data('stack') : [];
+
+        stack.push(currentPage[0]);
+        var leftPage = $(currentPage[0]);
+        var rightPage = modalPage;
+
+        leftPage.removeClass(removeClasses).addClass("page-from-center-to-left").removeClass('page-current');
+        rightPage.removeClass(removeClasses).addClass("page-from-right-to-center page-current");
+
+        leftPage.animationEnd(function() {
+            afterAnimation(leftPage);
+        });
+        rightPage.animationEnd(function() {
+            rightPage.removeClass(removeClasses);
+        });
+
+
+        modal.data('stack', stack);
+
+        console.log(stack);
+
+        ///modalPage.addClass('').show();
+
+        return modalPage[0];
+    };
+    $.closePopupGroupPage = function (modalPage, removeOnClose) {
+
+        var removeClasses = 'page-left page-right page-from-center-to-left page-from-center-to-right page-from-right-to-center page-from-left-to-center';
+
+        function afterAnimation(page) {
+            page.removeClass(removeClasses);
+        }
+
+        if (typeof removeOnClose === 'undefined') removeOnClose = true;
+        if (typeof modalPage === 'string' && modalPage.indexOf('<') >= 0) {
+            var _modalPage = document.createElement('div');
+            _modalPage.innerHTML = modalPage.trim();
+            if (_modalPage.childNodes.length > 0) {
+                modalPage = _modalPage.childNodes[0];
+                if (removeOnClose) modalPage.classList.add('remove-on-close');
+                $(defaults.modalPageContainer).append(modalPage);
+            }
+            else return false; //nothing found
+        }
+        modalPage = $(modalPage);
+        if (modalPage.length === 0) return false;
+
+        var modal = modalPage.parent('.popup-group');
+
+        var stack = modal.data('stack') ? modal.data('stack') : [];
+
+        if(stack.length > 0) {
+            var prePage = stack.pop();
+            var leftPage = $(prePage);
+            var rightPage = modalPage;
+
+            rightPage.removeClass(removeClasses).addClass("page-from-center-to-right").removeClass('page-current');
+            leftPage.removeClass(removeClasses).addClass("page-from-left-to-center page-current");
+
+            leftPage.animationEnd(function () {
+                leftPage.removeClass(removeClasses);
+            });
+            rightPage.animationEnd(function () {
+                afterAnimation(rightPage);
+            });
+
+            modal.data('stack', stack);
+        } else {
+            $.closeModal(modal);
+        }
+
+        console.log(stack);
+
+        ///modalPage.addClass('').show();
+
+        return modalPage[0];
+    };
     $.pickerModal = function (pickerModal, removeOnClose) {
         if (typeof removeOnClose === 'undefined') removeOnClose = true;
         if (typeof pickerModal === 'string' && pickerModal.indexOf('<') >= 0) {
@@ -2375,6 +2521,7 @@ Device/OS Detection
         }
         var isPopover = modal.hasClass('popover');
         var isPopup = modal.hasClass('popup');
+        var isPopupGroup = modal.hasClass('popup-group');
         var isLoginScreen = modal.hasClass('login-screen');
         var isPickerModal = modal.hasClass('picker-modal');
         var isToast = modal.hasClass('toast');
@@ -2393,13 +2540,13 @@ Device/OS Detection
 
         var overlay;
         if (!isLoginScreen && !isPickerModal && !isToast) {
-            if ($('.modal-overlay').length === 0 && !isPopup) {
+            if ($('.modal-overlay').length === 0 && (!isPopup && !isPopupGroup)) {
                 $(defaults.modalContainer).append('<div class="modal-overlay"></div>');
             }
-            if ($('.popup-overlay').length === 0 && isPopup) {
+            if ($('.popup-overlay').length === 0 && (isPopup || isPopupGroup)) {
                 $(defaults.modalContainer).append('<div class="popup-overlay"></div>');
             }
-            overlay = isPopup ? $('.popup-overlay') : $('.modal-overlay');
+            overlay = (isPopup || isPopupGroup) ? $('.popup-overlay') : $('.modal-overlay');
         }
 
         //Make sure that styles are applied, trigger relayout;
@@ -2429,16 +2576,21 @@ Device/OS Detection
         var isModal = modal.hasClass('modal');
         var isPopover = modal.hasClass('popover');
         var isPopup = modal.hasClass('popup');
+        var isPopupGroup = modal.hasClass('popup-group');
         var isLoginScreen = modal.hasClass('login-screen');
         var isPickerModal = modal.hasClass('picker-modal');
 
         var removeOnClose = modal.hasClass('remove-on-close');
 
-        var overlay = isPopup ? $('.popup-overlay') : $('.modal-overlay');
+        var overlay = (isPopup || isPopupGroup) ? $('.popup-overlay') : $('.modal-overlay');
         if (isPopup){
             if (modal.length === $('.popup.modal-in').length) {
                 overlay.removeClass('modal-overlay-visible');    
             }  
+        } else if(isPopupGroup) {
+            if (modal.length === $('.popup-group.modal-in').length) {
+                overlay.removeClass('modal-overlay-visible');
+            }
         }
         else if (!isPickerModal) {
             overlay.removeClass('modal-overlay-visible');
@@ -2460,7 +2612,7 @@ Device/OS Detection
                 if (isPickerModal) {
                     $(defaults.modalContainer).removeClass('picker-modal-closing');
                 }
-                if (isPopup || isLoginScreen || isPickerModal) {
+                if (isPopup || isPopupGroup || isLoginScreen || isPickerModal) {
                     modal.removeClass('modal-out').hide();
                     if (removeOnClose && modal.length > 0) {
                         modal.remove();
@@ -2518,7 +2670,49 @@ Device/OS Detection
             else popup = '.popup.modal-in';
             $.closeModal(popup);
         }
-     
+
+        // Popup Group
+        var popupgroup;
+        if (clicked.hasClass('open-popup-group')) {
+            if (clickedData.popupgroup) {
+                popupgroup = clickedData.popupgroup;
+            }
+            else popupgroup = '.popup-group';
+
+            $.popupgroup(popupgroup);
+        }
+        if (clicked.hasClass('close-popup-group')) {
+            if (clickedData.popupgroup) {
+                popupgroup = clickedData.popupgroup;
+            }
+            else popupgroup = '.popup-group.modal-in';
+            $(popupgroup).transitionEnd(function () {
+                console.log('logon');
+                var removeClasses = 'page-left page-right page-from-center-to-left page-from-center-to-right page-from-right-to-center page-from-left-to-center';
+                $(this).find('.popup-group-page').removeClass(removeClasses);
+                $(this).find('.popup-group-page').removeClass('page-current');
+            });
+            $(popupgroup).data('stack', null);
+            $.closeModal(popupgroup);
+        }
+
+        var popupGroupPage;
+        // Popu Group Page
+        if (clicked.hasClass('open-popup-group-page')) {
+            if (clickedData.popupGroupPage) {
+                popupGroupPage = clickedData.popupGroupPage;
+            }
+            else popupGroupPage = '.popup-group-page';
+            $.popupgrouppage(popupGroupPage);
+        }
+        if (clicked.hasClass('close-popup-group-page')) {
+            if (clickedData.popupGroupPage) {
+                popupGroupPage = clickedData.popupGroupPage;
+            }
+            else popupGroupPage = '.popup-group-page.page-current';
+            $.closePopupGroupPage(popupGroupPage);
+        }
+
         // Close Modal
         if (clicked.hasClass('modal-overlay')) {
             if ($('.modal.modal-in').length > 0 && defaults.modalCloseByOutside)
@@ -2531,6 +2725,8 @@ Device/OS Detection
         if (clicked.hasClass('popup-overlay')) {
             if ($('.popup.modal-in').length > 0 && defaults.popupCloseByOutside)
                 $.closeModal('.popup.modal-in');
+            if ($('.popup-group.modal-in').length > 0 && defaults.popupCloseByOutside)
+                $.closeModal('.popup-group.modal-in');
         }
     }
 
@@ -2546,7 +2742,7 @@ Device/OS Detection
     };
 
     $(function() {
-      $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .open-popover, .close-popover, .close-picker', handleClicks);
+      $(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .popup-group-overlay, .close-popup-group, .open-popup-group, .close-popup-group-page, .open-popup-group-page, .open-popover, .close-popover, .close-picker', handleClicks);
       defaults.modalContainer = defaults.modalContainer || document.body;  //incase some one include js in head
     });
 }($);
@@ -5050,7 +5246,7 @@ Device/OS Detection
   }
 
   //load new page, and push to history
-  Router.prototype.loadPage = function(url, noAnimation, replace, reload) {
+  Router.prototype.loadPage = function(url, noAnimation, replace, reload, leftToRight) {
 
     var param = url;
 
@@ -5115,7 +5311,7 @@ Device/OS Detection
 
       this.forwardStack  = [];  //clear forward stack
 
-      this.animatePages(this.getCurrentPage(), page, null, noAnimation);
+      this.animatePages(leftToRight ? page: this.getCurrentPage(), leftToRight ? this.getCurrentPage() : page, leftToRight, noAnimation);
     });
   }
 
@@ -5310,7 +5506,7 @@ Device/OS Detection
     html = "<div>"+html+"</div>";
     var tmp = $(html);
 
-    var $extra = tmp.find(".popup, .popover, .panel, .panel-overlay");
+    var $extra = tmp.find(".popup, .popup-group, .popover, .panel, .panel-overlay");
 
     var $page = tmp.find(".page");
     if(!$page[0]) $page = tmp.addClass("page");
@@ -5399,7 +5595,7 @@ Device/OS Detection
       }
 
       if(!url || url === "#" || /javascript:.*;/.test(url)) return;
-      router.loadPage(url, $target.hasClass("no-transition") ? true : undefined, $target.hasClass("replace") ? true : undefined);  //undefined is different to false
+      router.loadPage(url, $target.hasClass("no-transition") ? true : undefined, $target.hasClass("replace") ? true : undefined, $target.hasClass("reload") ? true : undefined, $target.hasClass("left-to-right") ? true : undefined);  //undefined is different to false
     })
   });
 }($);
