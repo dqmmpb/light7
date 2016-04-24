@@ -4827,7 +4827,7 @@ Device/OS Detection
 
   $.initIndexList = function(selector) {
     var container = $(selector);
-    if(container.hasClass(".contacts-block")) {
+    if(container.hasClass("contacts-block")) {
       container.indexList();
     } else {
       container.find(".contacts-block").indexList();
