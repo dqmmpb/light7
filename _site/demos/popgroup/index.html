@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Light7 Demo</title>
+    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="任行">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet" href="/dist/css/light7.css?r=201603281">
+    <link rel="stylesheet" href="/dist/css/light7-swiper.css">
+    <link rel="stylesheet" href="/dist/css/light7-swipeout.css">
+    <link rel="stylesheet" href="/assets/css/demos.css">
+
+    <link rel="apple-touch-icon-precomposed" href="/assets/img/apple-touch-icon-114x114.png">
+    <script src="/assets/js/jquery-2.1.4.js"></script>
+    <script>
+      //ga
+    </script>
+  </head>
+  <body>
+    <div id="page-popup" class="page">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="/demos">
+      <span class="icon icon-left"></span>
+      Back
+    </a>
+    <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-second">
+      About
+      <span class="icon icon-menu"></span>
+    </a>
+    <h1 class="title">Grid</h1>
+  </header>
+  <div class="content" id=''>
+    <div class="content-block">
+      <p><a class="button open-popup-group" data-popup-group=".popup-group-city-picker">Province</a></p>
+    </div>
+  </div>
+</div>
+
+
+<div class="popup popup-second popright">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-right close-popup">
+      Close
+    </a>
+    <h1 class="title">Pop Right</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button close-popup">OK</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup-group popup-group-city-picker popright">
+  <div class="popup-group-page popup-province">
+    <header class="bar bar-nav">
+      <a class="button button-link button-nav pull-left close-popup-group">
+        <span class="icon icon-left"></span>
+        Back
+      </a>
+      <h1 class="title">Province</h1>
+    </header>
+    <div class="content">
+      <div class="content-inner">
+        <div class="content-block">
+          <p><a class="button open-popup-group-page" data-popup-group-page=".popup-city">City</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-group-page popup-city">
+    <header class="bar bar-nav">
+      <a class="button button-link button-nav pull-left close-popup-group-page">
+        <span class="icon icon-left"></span>
+        Back
+      </a>
+      <h1 class="title">City</h1>
+    </header>
+    <div class="content">
+      <div class="content-inner">
+        <div class="content-block">
+          <p><a class="button open-popup-group-page" data-popup-group-page=".popup-district">District</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-group-page popup-district">
+    <header class="bar bar-nav">
+      <a class="button button-link button-nav pull-left close-popup-group-page">
+        <span class="icon icon-left"></span>
+        Back
+      </a>
+      <h1 class="title">District</h1>
+    </header>
+    <div class="content">
+      <div class="content-inner">
+        <div class="content-block">
+          <p><a class="button close-popup-group">District</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="/dist/js/light7.js"></script>
+    <script src="/dist/js/light7-swiper.js"></script>
+    <script src="/dist/js/light7-city-picker.js"></script>
+    <script src="/dist/js/light7-swipeout.js"></script>
+    <script src="/assets/js/demos.js?r=201603281"></script>
+  </body>
+</html>
