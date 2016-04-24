@@ -1,0 +1,126 @@
+---
+layout: demo
+title: Light7 Demo
+---
+<div id="page-popup" class="page">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="/demos">
+      <span class="icon icon-left"></span>
+      Back
+    </a>
+    <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-second">
+      About
+      <span class="icon icon-menu"></span>
+    </a>
+    <h1 class="title">Grid</h1>
+  </header>
+  <div class="content" id=''>
+    <div class="content-block">
+      <p><a class="button open-popup" data-popup=".popup-second">Pop Right</a></p>
+      <p><a class="button open-popup" data-popup=".popup-third">Pop Left</a></p>
+      <p><a class="button open-popup" data-popup=".popup-forth">Pop Down</a></p>
+      <p><a class="button open-popup" data-popup=".popup-province">Province</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-second popright">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-right close-popup">
+      Close
+    </a>
+    <h1 class="title">Pop Right</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button close-popup">OK</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="popup popup-third popleft">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-right close-popup">
+      Close
+    </a>
+    <h1 class="title">Pop Left</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button close-popup">OK</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-forth popdown">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-right close-popup">
+      Close
+    </a>
+    <h1 class="title">Pop Down</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button close-popup">OK</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="popup popup-province popright">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup">
+      <span class="icon icon-left"></span>
+      Back
+    </a>
+    <h1 class="title">Province</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button open-popup" data-popup=".popup-city">City</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-city popright">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup">
+      <span class="icon icon-left"></span>
+      Back
+    </a>
+    <h1 class="title">City</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button open-popup" data-popup=".popup-district">District</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-district popright">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup">
+      <span class="icon icon-left"></span>
+      Back
+    </a>
+    <h1 class="title">District</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p><a class="button close-popup">District</a></p>
+      </div>
+    </div>
+  </div>
+</div>

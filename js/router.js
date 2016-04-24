@@ -65,7 +65,7 @@
   }
 
   //load new page, and push to history
-  Router.prototype.loadPage = function(url, noAnimation, replace, reload) {
+  Router.prototype.loadPage = function(url, noAnimation, replace, reload, leftToRight) {
 
     var param = url;
 
@@ -130,7 +130,7 @@
 
       this.forwardStack  = [];  //clear forward stack
 
-      this.animatePages(this.getCurrentPage(), page, null, noAnimation);
+      this.animatePages(leftToRight ? page: this.getCurrentPage(), leftToRight ? this.getCurrentPage() : page, leftToRight, noAnimation);
     });
   }
 
@@ -325,7 +325,7 @@
     html = "<div>"+html+"</div>";
     var tmp = $(html);
 
-    var $extra = tmp.find(".popup, .popover, .panel, .panel-overlay");
+    var $extra = tmp.find(".popup, .popup-group, .popover, .panel, .panel-overlay");
 
     var $page = tmp.find(".page");
     if(!$page[0]) $page = tmp.addClass("page");
@@ -414,7 +414,7 @@
       }
 
       if(!url || url === "#" || /javascript:.*;/.test(url)) return;
-      router.loadPage(url, $target.hasClass("no-transition") ? true : undefined, $target.hasClass("replace") ? true : undefined);  //undefined is different to false
+      router.loadPage(url, $target.hasClass("no-transition") ? true : undefined, $target.hasClass("replace") ? true : undefined, $target.hasClass("reload") ? true : undefined, $target.hasClass("left-to-right") ? true : undefined);  //undefined is different to false
     })
   });
 }($);
