@@ -493,10 +493,7 @@
             rightPage.removeClass(removeClasses);
         });
 
-
         modal.data('stack', stack);
-
-        console.log(stack);
 
         ///modalPage.addClass('').show();
 
@@ -547,8 +544,6 @@
         } else {
             $.closeModal(modal);
         }
-
-        console.log(stack);
 
         ///modalPage.addClass('').show();
 
@@ -767,7 +762,6 @@
             }
             else popupgroup = '.popup-group.modal-in';
             $(popupgroup).transitionEnd(function () {
-                console.log('logon');
                 var removeClasses = 'page-left page-right page-from-center-to-left page-from-center-to-right page-from-right-to-center page-from-left-to-center';
                 $(this).find('.popup-group-page').removeClass(removeClasses);
                 $(this).find('.popup-group-page').removeClass('page-current');
