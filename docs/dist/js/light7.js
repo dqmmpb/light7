@@ -2359,7 +2359,7 @@ Device/OS Detection
             } else if(currentPages.length === 1) {
                 currentPage = currentPages[0];
             } else {
-                modal.find('.popup-group-page.page-current:gt(1)').removeClass('page-current');
+                $(currentPages).removeClass('page-current');
                 currentPage = currentPages[0];
             }
         } else {
