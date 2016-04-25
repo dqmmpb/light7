@@ -20,7 +20,7 @@
     }).toArray();
 
     // fixed index in popup-group
-    if(this.list.parents(".popup-group-page"))
+    if(this.list.parents(".popup-group-page") && this.list.parents(".popup-group-page").length > 0)
       this.indexList = $("<ul class='index-list-bar'></ul>").appendTo(this.list.parents(".popup-group-page"));
     else
       this.indexList = $("<ul class='index-list-bar'></ul>").appendTo(this.list.parents(".page"));
