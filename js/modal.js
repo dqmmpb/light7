@@ -747,27 +747,27 @@
         }
 
         // Popup Group
-        var popupgroup;
+        var popupGroup;
         if (clicked.hasClass('open-popup-group')) {
-            if (clickedData.popupgroup) {
-                popupgroup = clickedData.popupgroup;
+            if (clickedData.popupGroup) {
+                popupGroup = clickedData.popupGroup;
             }
-            else popupgroup = '.popup-group';
+            else popupGroup = '.popup-group';
 
-            $.popupgroup(popupgroup);
+            $.popupGroup(popupGroup);
         }
         if (clicked.hasClass('close-popup-group')) {
-            if (clickedData.popupgroup) {
-                popupgroup = clickedData.popupgroup;
+            if (clickedData.popupGroup) {
+                popupGroup = clickedData.popupGroup;
             }
-            else popupgroup = '.popup-group.modal-in';
-            $(popupgroup).transitionEnd(function () {
+            else popupGroup = '.popup-group.modal-in';
+            $(popupGroup).transitionEnd(function () {
                 var removeClasses = 'page-left page-right page-from-center-to-left page-from-center-to-right page-from-right-to-center page-from-left-to-center';
                 $(this).find('.popup-group-page').removeClass(removeClasses);
                 $(this).find('.popup-group-page').removeClass('page-current');
             });
-            $(popupgroup).data('stack', null);
-            $.closeModal(popupgroup);
+            $(popupGroup).data('stack', null);
+            $.closeModal(popupGroup);
         }
 
         var popupGroupPage;
