@@ -4303,7 +4303,7 @@ Device/OS Detection
 
       var initYears = (function () {
         var arr = [];
-        for (var i = 1950; i <= 2030; i++) { arr.push("" + i); }
+        for (var i = 1950; i <= 2030; i++) { arr.push(formatNumber(i)); }
         return arr;
       })();
 
