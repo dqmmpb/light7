@@ -4312,7 +4312,7 @@ Device/OS Detection
 
         rotateEffect: false,  //为了性能
 
-        value: [today.getFullYear(), formatNumber(today.getMonth()+1), today.getDate(), formatNumber(today.getHours()), formatNumber(today.getMinutes())],
+        value: [today.getFullYear(), formatNumber(today.getMonth()+1), formatNumber(today.getDate()), formatNumber(today.getHours()), formatNumber(today.getMinutes())],
 
         onChange: function (picker, values, displayValues) {
           var days = getDaysByMonthAndYear(picker.cols[1].value, picker.cols[0].value);
