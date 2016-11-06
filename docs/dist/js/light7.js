@@ -4284,7 +4284,7 @@ Device/OS Detection
       var getDays = function(max) {
         var days = [];
         for(var i=1; i<= (max||31);i++) {
-          days.push(i < 10 ? "0"+i : i);
+          days.push(i < 10 ? "0"+i : ""+i);
         }
         return days;
       };
@@ -4296,14 +4296,14 @@ Device/OS Detection
       };
 
       var formatNumber = function (n) {
-        return n < 10 ? "0" + n : n;
+        return n < 10 ? "0" + n : "" + n;
       };
 
       var initMonthes = ('01 02 03 04 05 06 07 08 09 10 11 12').split(' ');
 
       var initYears = (function () {
         var arr = [];
-        for (var i = 1950; i <= 2030; i++) { arr.push(i); }
+        for (var i = 1950; i <= 2030; i++) { arr.push("" + i); }
         return arr;
       })();
 
@@ -4312,7 +4312,7 @@ Device/OS Detection
 
         rotateEffect: false,  //为了性能
 
-        value: [today.getFullYear(), formatNumber(today.getMonth()+1), formatNumber(today.getDate()), formatNumber(today.getHours()), formatNumber(today.getMinutes())],
+        value: [formatNumber(today.getFullYear()), formatNumber(today.getMonth()+1), formatNumber(today.getDate()), formatNumber(today.getHours()), formatNumber(today.getMinutes())],
 
         onChange: function (picker, values, displayValues) {
           var days = getDaysByMonthAndYear(picker.cols[1].value, picker.cols[0].value);
