@@ -149,16 +149,16 @@
               touchCurrentX = position.x;
               touchCurrentY = position.y;
               if (typeof isScrolling === 'undefined') {
-                  isScrolling = !!(isScrolling || Math.abs(touchCurrentY - touchStartY) > Math.abs(touchCurrentX - touchStartX));
+                  isScrolling = !!(isScrolling || (p.isH && Math.abs(touchCurrentY - touchStartY) < Math.abs(touchCurrentX - touchStartX)) || (!p.isH && Math.abs(touchCurrentY - touchStartY) > Math.abs(touchCurrentX - touchStartX)));
               }
-              if (p.isH && isScrolling) {
+              if (!isScrolling) {
                   isTouched = false;
                   return;
               }
-              e.preventDefault();
+              //e.preventDefault();
               if (p.animating) {
                   isTouched = false;
-                  return;   
+                  return;
               }
               allowItemClick = false;
               if (!isMoved) {
@@ -168,15 +168,27 @@
                   wrapperHeight = p.wrapper[0].offsetHeight;
                   p.wrapper.transition(0);
               }
-              e.preventDefault();
+              //e.preventDefault();
 
-              touchesDiff = p.isH ? touchCurrentX - touchStartX : touchCurrentY - touchStartY;
-              percentage = touchesDiff/(p.isH ? wrapperWidth : wrapperHeight);
-              currentTranslate = (p.monthsTranslate * inverter + percentage) * 100;
+              if(p.isH && (Math.abs(touchCurrentX - touchStartX) >= Math.abs(touchCurrentY - touchStartY))) {
+                  e.preventDefault();
+                  touchesDiff = p.isH ? touchCurrentX - touchStartX : touchCurrentY - touchStartY;
+                  percentage = touchesDiff/(p.isH ? wrapperWidth : wrapperHeight);
+                  currentTranslate = (p.monthsTranslate * inverter + percentage) * 100;
 
-              // Transform wrapper
-              p.wrapper.transform('translate3d(' + (p.isH ? currentTranslate : 0) + '%, ' + (p.isH ? 0 : currentTranslate) + '%, 0)');
+                  // Transform wrapper
+                  p.wrapper.transform('translate3d(' + (p.isH ? currentTranslate : 0) + '%, ' + (p.isH ? 0 : currentTranslate) + '%, 0)');
 
+              } else if(!p.isH && (Math.abs(touchCurrentY - touchStartY) >= Math.abs(touchCurrentX - touchStartX))) {
+                  e.preventDefault();
+                  touchesDiff = p.isH ? touchCurrentX - touchStartX : touchCurrentY - touchStartY;
+                  percentage = touchesDiff/(p.isH ? wrapperWidth : wrapperHeight);
+                  currentTranslate = (p.monthsTranslate * inverter + percentage) * 100;
+
+                  // Transform wrapper
+                  p.wrapper.transform('translate3d(' + (p.isH ? currentTranslate : 0) + '%, ' + (p.isH ? 0 : currentTranslate) + '%, 0)');
+
+              }
           }
           function handleTouchEnd (e) {
               if (!isTouched || !isMoved) {

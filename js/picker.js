@@ -619,7 +619,7 @@
   });
 
   //修复picker会滚动页面的bug
-  $(document).on($.touchEvents.move, ".picker-modal-inner", function(e) {
+  $(document).on($.touchEvents.move, ".picker-modal:not(.picker-modal-inline) .picker-modal-inner", function(e) {
     e.preventDefault();
   });
 
